@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "willow",
+  "theme": "mint",
   "name": "Zappl Documentation.",
   "colors": {
     "primary": "#117DF8",
@@ -83,7 +83,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hello@dare.tech"
+        "href": "mailto:helpdesk@dare.tech"
       }
     ],
     "primary": {
