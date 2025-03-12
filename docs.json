@@ -19,19 +19,54 @@
               "about/introduction",
               "about/requirements",
               "about/security",
-              "about/macOS-Components",
+              "about/macOS-components",
               "about/FAQ"
             ]
           },
           {
             "group": "Deploying Zappl",
             "pages": [
-              "deploy/markdown",
-              "deploy/code",
-              "deploy/images",
-              "deploy/settings",
-              "deploy/navigation",
-              "deploy/reusable-snippets"
+              "deploy/general",
+              "deploy/jamf-pro",
+              "deploy/jamf-school",
+              "deploy/kandji",
+              "deploy/intune",
+              "deploy/other-mdm"
+            ]
+          },
+          {
+            "group": "Customisation",
+            "pages": [
+              "customise/preferences",
+              "customise/message-variables"
+            ]
+          },
+          {
+            "group": "Applications",
+            "pages": [
+              "apps/updates",
+              "apps/installs"
+            ]
+          },
+          {
+            "group": "Online Portal",
+            "pages": [
+              "portal/accounts",
+              "portal/dashboard",
+              "portal/devices",
+              "portal/device-records",
+              "portal/applications",
+              "portal/reports",
+              "portal/settings"
+            ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "other/command-line",
+              "other/logs-errors",
+              "other/troubleshooting",
+              "other/uninstall"
             ]
           }
         ]
