@@ -16,20 +16,22 @@
           {
             "group": "About Zappl",
             "pages": [
-              "introduction",
-              "quickstart",
-              "development"
+              "about/introduction",
+              "about/requirements",
+              "about/security",
+              "about/macOS-Components",
+              "about/FAQ"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Deploying Zappl",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "deploy/markdown",
+              "deploy/code",
+              "deploy/images",
+              "deploy/settings",
+              "deploy/navigation",
+              "deploy/reusable-snippets"
             ]
           }
         ]
@@ -58,19 +60,15 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "zappl.co",
+          "href": "https://zappl.co",
+          "icon": "location-pin"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "dare.tech",
+          "href": "https://dare.tech",
+          "icon": "location-pin"
+
         }
       ]
     }
@@ -82,14 +80,14 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
+        "label": "Zappl Support",
         "href": "mailto:helpdesk@dare.tech"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Zappl Portal",
+      "href": "https://portal.zappl.co"
     }
   },
   "footer": {
