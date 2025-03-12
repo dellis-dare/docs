@@ -73,6 +73,25 @@
         ]
       },
       {
+        "tab": "Updates",
+        "groups": [
+          {
+            "group": "Version History",
+            "pages": [
+              "updates/changelog",
+              "updates/known-issues"
+            ]
+          },
+          {
+            "group": "Known Issues",
+            "pages": [
+              "updates/open-issues",
+              "updates/closed-issues"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API Reference",
         "groups": [
           {
