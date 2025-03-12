@@ -1,108 +1,45 @@
 ---
 title: 'FAQ'
 icon: 'question'
-description: 'Preview changes locally to update your docs'
+description: 'Frequently Asked Questions'
 ---
 
-<Info>
-  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding. <br />
-  Please upgrade to ```docs.json``` before proceeding and delete the legacy ```mint.json``` file.
-</Info>
+<Accordion title="What MDM platforms are supported?">
+  If your MDM platform allows you to deploy a Configuration Profile and a Package, Zappl will be supported. For advanced configuration and integration with your MDMs current application store i.e. Jamf Self Service, the MDM solution will need to support script deployments.
+</Accordion>
 
-Follow these steps to install and run Mintlify on your operating system:
+<Accordion title="Where are the update packages hosted?">
+  With Zappl, we pride ourself on security and believe the safest place for you to obtain your application updates are from the vendors website itself. Our technology is designed to monitor your device, identify if an update is required, download from the software vendors website and install without impacting the users experience.
+</Accordion>
 
-**Step 1**: Install Mintlify:
+<Accordion title="Do users need to logout or restart to apply the updates?">
+  **No.** We have always had a clear vision with Zappl, and that is the user experience must remain our focus. Zappl can be configured to your requirements as an administrator, but in its default form we will notify users that updates are required. If it is convenient, the apps will save the data, close the application, perform the update and re-open back where you were. **You don’t need to logout or restart** and it’s a great time to grab a coffee.
+</Accordion>
 
-<CodeGroup>
+<Accordion title="Does Zappl use Munki?">
+  **No.** Our aim was to develop Zappl from the ground up using Swift. We also wanted to move away from centrally hosting packages, and instead have the Zappl agent obtain any updates from the software vendors themselves.
+</Accordion>
 
-  ```bash npm
-  npm i -g mintlify
-  ```
+<Accordion title="How do we monitor our compliance?">
+  Zappl has a dedicated web portal that allows your team to monitor compliance of your devices. This is in the form of a compliance dashboard, device or application view, so you can quickly focus in on a group of users or applications. If you prefer a scheduled overview of your compliance, a PDF report can be scheduled to be emailed at your chosen date or time period.
+</Accordion>
 
-```bash yarn
-yarn global add mintlify
-```
+<Accordion title="Are un-managed applications updated too?">
+  **Yes.** Zappl runs independently to the MDM system and will monitor and update any 3rd party application that we currently support in our app catalog. With the increase of shadow IT practices within the enterprise, where users prefer to use their own applications and tools, we will actively patch these, even if they are not a company deployed application.
+</Accordion>
 
-</CodeGroup>
+<Accordion title="Are architecture-specific apps supported?">
+  **Yes.** We have a combination of universal and architecture-specific apps in our catalog. If the app has separate installers for Intel and Apple Silicon Macs, the Zappl agent determines the architecture of the computer and then downloads the relevant installer.
+</Accordion>
 
-**Step 2**: Navigate to the docs directory (where the `docs.json` file is located) and execute the following command:
+<Accordion title="Does Zappl support apps that require Rosetta?">
+  **Yes.** Some apps are still designed to run only on Intel Macs. For this reason, we install Rosetta as part of the Zappl setup process on Apple Silicon Macs that don't already have it. This ensures these devices can install apps requiring Rosetta immediately after Zappl is installed.
+</Accordion>
 
-```bash
-mintlify dev
-```
+<Accordion title="What if the user is on a video call when Zappl runs?">
+  Zappl comes with a very customisable Configuration Profile that allows you to be very granular with your update notifications. In its simplest form you can configure Zappl not to run on a device if a particular application is in focus I.e. Zoom, Google Chat or Microsoft Teams. We can also schedule it to not interrupt users on specific times or days if you know you have a deadline to hit.
+</Accordion>
 
-A local preview of your documentation will be available at `http://localhost:3000`.
-
-### Custom Ports
-
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. To run Mintlify on port 3333, for instance, use this command:
-
-```bash
-mintlify dev --port 3333
-```
-
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
-
-```md
-Port 3000 is already in use. Trying 3001 instead.
-```
-
-## Mintlify Versions
-
-Please note that each CLI release is associated with a specific version of Mintlify. If your local website doesn't align with the production version, please update the CLI:
-
-<CodeGroup>
-
-```bash npm
-npm i -g mintlify@latest
-```
-
-```bash yarn
-yarn global upgrade mintlify
-```
-
-</CodeGroup>
-
-## Validating Links
-
-The CLI can assist with validating reference links made in your documentation. To identify any broken links, use the following command:
-
-```bash
-mintlify broken-links
-```
-
-## Deployment
-
-<Tip>
-  Unlimited editors available under the [Pro
-  Plan](https://mintlify.com/pricing) and above.
-</Tip>
-
-If the deployment is successful, you should see the following:
-
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
-
-## Code Formatting
-
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
-
-## Troubleshooting
-
-<AccordionGroup>
-  <Accordion title='Error: Could not load the "sharp" module using the darwin-arm64 runtime'>
-
-    This may be due to an outdated version of node. Try the following:
-    1. Remove the currently-installed version of mintlify: `npm remove -g mintlify`
-    2. Upgrade to Node v19 or higher.
-    3. Reinstall mintlify: `npm install -g mintlify`
-  </Accordion>
-
-  <Accordion title="Issue: Encountering an unknown error">
-  
-    Solution: Go to the root of your device and delete the \~/.mintlify folder. Afterwards, run `mintlify dev` again.
-  </Accordion>
-</AccordionGroup>
-
-Curious about what changed in the CLI version? [Check out the CLI changelog.](https://www.npmjs.com/package/mintlify?activeTab=versions)
+<Accordion title="What security checks do you make?">
+  See our [Security](/about/security) page.
+</Accordion>
