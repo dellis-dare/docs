@@ -1,59 +1,219 @@
 ---
 title: 'Jamf Pro'
 icon: 'gears'
-description: 'Add image, video, and other HTML elements'
+description: 'This guide provides step-by-step instructions on how to use Jamf Pro to configure and deploy Zappl in your environment.'
 ---
 
-<img
-  style={{ borderRadius: '0.5rem' }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+>For a successful Zappl deployment with Jamf Pro, please follow the steps in the order outlined below. It is important that all configuration profiles are installed prior to the Zappl installer being deployed.
 
-## Image
+## <Icon icon="layer-group" size={32}/> Categories 
+<Info>The Categories aren’t essential to deployment, but they can help keep your Jamf Pro environment neat and organised.</Info>
 
-### Using Markdown
+We’d recommend two Categories for Zappl deployment;
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+<ParamField path="Zappl">
+  For housing the necessary Configuration Profiles, Policies, Scripts etc.
+</ParamField>
 
-```md
-![title](/path/image.jpg)
-```
+<ParamField path="Application Updates">
+  A useful Category to be used with the Self Service updates.
+</ParamField>
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+#### Adding Categories
+<Steps>
+  <Step>
+    Navigate to _Jamf Pro > Settings > Categories_ and click **New**.
+  </Step>
+  <Step>
+    Type in the Category name, and optionally alter it’s priority in Self Service.
+    ![Jamf Pro Category](/images/new_category.webp)
+  </Step>
+  <Step>
+    **Save** the Category, and follow this process for any other relevant Categories you want to add (**`Application Updates`**).
+  </Step>
+</Steps>
 
-### Using Embeds
+<Check>These Categories are now ready to use throughout the Zappl deployment in Jamf Pro.</Check>
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+<br /><br />
 
-```html
-<img height="200" src="/path/image.jpg" />
-```
+## <Icon icon="sliders" size={32}/> Configuration Profiles
 
-## Embeds and HTML elements
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  style={{ width: '100%', borderRadius: '0.5rem' }}
-></iframe>
+#### Adding the JSON Schema
+<Steps>
+  <Step>
+    Open/download [our JSON file](https://github.com/dare-tech/zappl/blob/main/Config%20Profiles/JSON%20Schema/Zappl%20Preferences.json).
+  </Step>
+  <Step>
+    In Jamf Pro, navigate to _Computers > Configuration Profiles_ and click **New**.
+  </Step>
+  <Step>
+    In the general payload, give the new profile a name, assign it to a category, set the level as **Computer Level** and the distribution method as **Install Automatically**.
+    ![JSON Profile](/images/json_profile.webp)
+  </Step>
+  <Step>
+    Under the payload options, locate the **Application & Custom Settings** payload, select **External Applications** and select **Add**.
+    ![JSON Profile](/images/json_add.webp)
+  </Step>
+  <Step>
+    Under the Source dropdown, select **Custom Schema**.
+    ![JSON Schema](/images/json_schema.webp)
+  </Step>
+  <Step>
+    Set the preference domain as `com.dare.zappl.preferences` and click **Add Schema**.
+    ![JSON Schema](/images/json_add_schema.webp)
+  </Step>
+  <Step>
+    Copy the entire JSON Schema that we opened in an earlier step, Paste it into the text area and click **Save**.
+    ![JSON Schema](/images/json_add_custom.webp)
+  </Step>
+  <Step>
+    ### Customise Preferences
+    Configure your desired Zappl behaviour and user experience using the keys outlined in [our Preferences page](/customise/preferences).
+  </Step>
+  <Step>
+    Scope the profile to all computers where you plan to deploy Zappl (e.g. _All Managed Clients_), then click **Save**.
+    ![JSON Schema](/images/json_scope.webp)
+  </Step>
+</Steps>
 
 <br />
+#### Managed Login Items
+<Note>As of macOS 13 (Ventura), users can disable launch daemons through the Login Items option in System Settings. Zappl uses launch daemons to run automatically in the background, and these daemons must always be enabled for Zappl to function.</Note>
 
-<Tip>
+>The following profile ensures Zappl can run in the background by preventing users from disabling Zappl's launch daemons. This is achieved by whitelisting Zappl's Team ID (`JTYACQP7Y5`).
 
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
+<Steps>
+  <Step>
+    Download [our .mobileconfig file](https://github.com/dare-tech/zappl/blob/main/Config%20Profiles/Zappl%20-%20Pre-Approve%20Login%20Items.mobileconfig).
+  </Step>
+  <Step>
+    In Jamf Pro, navigate to _Computers > Configuration Profiles_ and click **Upload**.
+  </Step>
+  <Step>
+    Click **Choose File**, then locate the `.mobileconfig` file you downloaded in the first step and click **Upload**.
+    ![Login Items](/images/loginitems_upload.webp)
+  </Step>
+  <Step>
+    Click **Scope**, add your desired scope target for the profile and click **Save**.
+    ![Login Items](/images/loginitems_scope.webp)
+  </Step>
+</Steps>
 
-</Tip>
+<br />
+#### Full Disk Access
+<Note>As of macOS 13 (Ventura), full disk access is required in order to update or remove macOS apps. The Zappl agent is responsible for performing all app updates, therefore full disk access (`SystemPolicyAllFiles`) needs to be granted to the agent via a configuration profile.</Note>
 
-### iFrames
+>To ensure Zappl is allowed to perform updates, simply add the below configuration profile to your MDM and scope it out to devices which Zappl will be deployed to.
 
-Loads another HTML page within the document. Most commonly used for embedding videos.
+<Steps>
+  <Step>
+    Download [our .mobileconfig file](https://github.com/dare-tech/zappl/blob/main/Config%20Profiles/Zappl%20-%20PPPC.mobileconfig).
+  </Step>
+  <Step>
+    In Jamf Pro, navigate to _Computers > Configuration Profiles_ and click **Upload**.
+  </Step>
+  <Step>
+    Click **Choose File**, then locate the `.mobileconfig` file you downloaded in the first step and click **Upload**.
+    ![Login Items](/images/pppc_upload.webp)
+  </Step>
+  <Step>
+    Click **Scope**, add your desired scope target for the profile and click **Save**.
+    ![Login Items](/images/loginitems_scope.webp)
+  </Step>
+</Steps>
 
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
-```
+<br /><br />
+
+## <Icon icon="square-code" size={32}/> Deploy the Installer
+
+<Info>You can easily deploy the latest version of Zappl to your estate using our Zappl installer script. Follow the steps below to add the script to your Jamf Pro server and deploy Zappl using a policy.</Info>
+
+<Steps>
+  <Step>
+    Download [our Zappl installer script](https://github.com/dare-tech/zappl/blob/main/Scripts/Install%20Zappl.zsh).
+  </Step>
+  <Step>
+    In Jamf Pro, navigate to _Settings > Computer Management > Scripts_ and click **New**.
+  </Step>
+  <Step>
+    In the _General_ tab, give the new script a name and assign it to a category.
+    ![Installer](/images/installer_general.webp)
+  </Step>
+  <Step>
+    In the Script tab, drag and drop the `Install Zappl.zsh` script you downloaded in **Step 1** into the text area.
+    ![Installer](/images/installer_script.webp)
+  </Step>
+  <Step>
+    In the **Options** tab, set the below parameter labels for parameter 4 and 5 and click **Save**.
+    
+    **Parameter 4 |** `Activation Token (Optional, recommended)`
+    
+    **Parameter 5 |** `Public Key (Optional, recommended)`
+    ![Installer](/images/installer_parameters.webp)
+  </Step>
+  <Step>
+    Navigate to _Computers > Policies_ and click **New**.
+  </Step>
+  <Step>
+    In the **General** payload, give the policy a name, assign it to a category, set the trigger as **Recurring Check-in** and set the execution frequency as **Once per computer**.
+    ![Installer](/images/installer_policy.webp)
+  </Step>
+  <Step>
+    In the **Scripts** payload, click **Configure**, then locate the Deploy Zappl script you added in the previous steps and click **Add**.
+    ![Installer](/images/installer_add_script.webp)
+  </Step>
+  <Step>
+    We recommend that you paste your customer-specific activation and public keys to the first 2 script parameters. This will ensure Zappl activates even if the configuration profile fails to install. If you do not know your activation and public keys, [contact our helpdesk](mailto:helpdesk@dare.tech).
+    ![Installer](/images/installer_values.webp)
+  </Step>
+  <Step>
+    In the **Scope** tab, select your desired scoping target for the Zappl deployment and click **Save**.
+    ![Installer](/images/installer_scope.webp)
+  </Step>
+</Steps>
+
+<br /><br />
+
+## <Icon icon="layer-plus" size={32}/> Additional Scripts
+<Info>**The following scripts are optional for deploying Zappl but provide extra functionality.** It's recommended to add these scripts to your Jamf Pro environment while setting up the Zappl deployment, ensuring they're readily available when needed.</Info>
+
+#### Deploy Software Script
+<Info>**This script enables the installation of any app from our [app catalog](zappl.co/app-catalog).** It eliminates the need for Jamf Pro admins to manually package and deploy software. For instructions on using this script, refer to Adding Scripts to Jamf Pro below.</Info>
+
+Download [our Deploy Software script](https://github.com/dare-tech/zappl/blob/main/Scripts/Zappl%20-%20Deploy%20Software.zsh), and utilise the Parameter Labels below.
+
+<AccordionGroup>
+  <Accordion title="Parameter 4" icon="square-4">
+    Application Name (Use the Installation Format from the Zappl App Catalog - E.g. com.google.Chrome)
+  </Accordion>
+  <Accordion title="Parameter 5" icon="square-5">
+    Action (Options are "install" to have Zappl install the App silently, "install-showProgress" to install with a progress prompt, "update" to mark an App for a forced update, or "selfService" when creating the Self Service Application Updates policy.)
+  </Accordion>
+  <Accordion title="Parameter 6" icon="square-6">
+    Grace Period in Minutes (Only applicable if specifying "update" as the action. This is the amount of time the user has to save and quit the App before it quits automatically. Leave blank for 15 minutes)
+  </Accordion>
+  <Accordion horizontal title="Parameter 7" icon="square-7">
+    Deferrals Allowed (Only required if specifying "update" as the action. This is the amount of times a user can defer an update prompt before being forced to update. Leave blank for no deferrals and just a grace period timer)
+  </Accordion>
+  <Accordion horizontal title="Parameter 8" icon="square-8">
+    Minimum Deferral Window (Only applicable if specifying "update" as the action. This is the minimum time in minutes Zappl will prompt users to update again after they defer. Leave blank for the the default value of 60 minutes)
+  </Accordion>
+</AccordionGroup>
+
+#### Collect Logs Script
+<Info>This script provides an easy method for collecting Zappl log files when troubleshooting. For instructions on using this script, refer to Adding Scripts to Jamf Pro below.</Info>
+
+Download [our Log Collection script](https://github.com/dare-tech/zappl/blob/main/Scripts/Zappl%20-%20Collect%20Logs.zsh), and utilise the Parameter Labels below.
+
+<AccordionGroup>
+  <Accordion title="Parameter 4" icon="square-4">
+    Jamf Pro URL
+  </Accordion>
+  <Accordion title="Parameter 5" icon="square-5">
+    API Client ID
+  </Accordion>
+  <Accordion title="Parameter 6" icon="square-6">
+    API Client Secret
+  </Accordion>
+</AccordionGroup>

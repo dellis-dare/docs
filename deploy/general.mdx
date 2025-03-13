@@ -1,37 +1,22 @@
 ---
 title: 'General'
 icon: 'comment'
-description: 'Display inline code and code blocks'
+description: 'Getting up and running is as easy as 1,2,3.'
 ---
 
-## Basic
+<Steps>
+    <Step title="Configure Preferences">
+        Configure your desired Zappl behaviour and user experience using the Zappl preferences configuration profile.
+    </Step>
+    <Step title="Install Supporting Profiles">
+        Whitelist Zappl binaries using a managed login item configuration profile and a PPPC profile to allow Zappl to run seamlessly in the background.
+    </Step>
+    <Step title="Install Zappl">
+        Deploy the latest Zappl installer using our installer script.
+    </Step>
+    <Step title="Profit.">
+        You can now sit back and watch your compliance levels improve, with your Zappl reporting dashboard.
+    </Step>
+</Steps>
 
-### Inline Code
-
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
-
-### Code Block
-
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
-
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+For steps setting Zappl up in a specific MDM environment, see our options on the left.
