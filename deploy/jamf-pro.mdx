@@ -217,3 +217,147 @@ Download [our Log Collection script](https://github.com/dare-tech/zappl/blob/mai
     API Client Secret
   </Accordion>
 </AccordionGroup>
+
+#### Adding Scripts to Jamf Pro
+<Info>Follow the steps below to add either of the above scripts to your Jamf Pro server.<br />
+  For information on using the Deploy Software script, see [Application Installations](/apps/installs).<br />
+  For information on using the Log Collection script, see [Logs and Errors](/other/logs-errors).</Info>
+  
+<Steps>
+  <Step>
+    In Jamf Pro, navigate to _Settings > Computer Management > Scripts_ and click **New**.
+  </Step>
+  <Step>
+    In the **General** tab, give the script a name and assign it to a category.
+    ![Script](/images/example_script.webp)
+  </Step>
+  <Step>
+    In the **Script** tab drag and drop the downloaded script into the text area.
+    ![Script](/images/example_script_add.webp)
+  </Step>
+  <Step>
+    In the **Options** tab, paste in the parameter labels outlined above into the relevant parameter fields, then click **Save**.
+    ![Script](/images/example_script_parameters.webp)
+  </Step>
+</Steps>
+
+<br /><br />
+
+## <Icon icon="store" size={32}/> Self Service Updates
+<Tip>We recommend setting up a policy in your Jamf Pro environment which allows users to install updates on-demand at a time of their convenience to supplement the automatic recurring update prompts.</Tip>
+
+#### Creating the Self Service Policy
+<Info>Before creating this policy, ensure you have added the Deploy Software Script to your Jamf Pro server.</Info>
+
+<Steps>
+  <Step>
+    In Jamf Pro, navigate to _Computers > Policies_ and click **New**.
+  </Step>
+  <Step>
+    In the **General** payload, set a display name and category. Then, set the execution frequency to **Ongoing**.
+    ![Self Service](/images/self-service-policy.webp)
+  </Step>
+  <Step>
+    Select the **Scripts** payload, then locate the `Zappl - Deploy Software` script and click **Add**.
+    ![Self Service](/images/self-service-script.webp)
+  </Step>
+  <Step>
+    Under the parameter values, set the Action parameter as `selfService`. Leave all other parameters blank.
+    ![Self Service](/images/self-service-parameters.webp)
+  </Step>
+  <Step>
+    In the **Scope** tab, set your desired scoping target. It is good practice to set the scope for this policy as a Smart Computer Group which uses the Zappl Installation Status Extension Attributes to target computers that have Zappl installed.
+    ![Self Service](/images/self-service-scope.webp)
+  </Step>
+  <Step>
+    Select the **Self Service** tab and check `Make the policy available in Self Service`.
+    ![Self Service](/images/self-service-tab.webp)
+  </Step>
+  <Step>
+    Set the display name and button labels for the policy.<br />Optionally, set a description to be displayed to users in Self Service.
+    ![Self Service](/images/self-service-buttons.webp)
+  </Step>
+  <Step>
+    Upload an icon to be displayed in the Self Service item.
+    ![Self Service](/images/self-service-icon.webp)
+  </Step>
+  <Step>
+    Add the Self Service item to a relevant category. Optionally, you can include the item in the featured category to make it easier for users to access.
+    ![Self Service](/images/self-service-categories.webp)
+  </Step>
+  <Step>
+    Finally, **Save** the policy.
+  </Step>
+</Steps>
+
+#### User Experience
+
+<Steps>
+  <Step>
+    After locating the Application Updates item in Self Service, the user can click **Install** to initialise the update check.
+    ![Self Service](/images/self-service-ux1.webp)
+  </Step>
+  <Step>
+    The below prompt is briefly displayed whilst Zappl initialises and checks for updates.
+    ![Self Service](/images/self-service-ux2.webp)
+  </Step>
+  <Step>
+    If Zappl finds updates, the user is informed via an update prompt which outlines the required updates and offers options to either install or skip. If the user skips the updates, any remaining deferrals the user currently has from the automatic Scheduled Update Prompts remain unaffected.
+    ![Self Service](/images/self-service-ux3.webp)
+  </Step>
+  <Step>
+    If Zappl finds no pending updates, the user is informed via the below prompt.
+    ![Self Service](/images/self-service-ux4.webp)
+  </Step>
+</Steps>
+
+<br /><br />
+
+## <Icon icon="puzzle-piece" size={32}/> Extension Attributes
+<Info>**Jamf Pro offers extension attributes which provide better visibility into Zappl's status across your estate.** While the Zappl portal displays all necessary information for admins, adding Jamf Pro extension attributes can be beneficial for administrators who primarily use Jamf Pro and may not have access to your Zappl portal.</Info>
+
+**Download our pre-configured Extension Attributes [here](https://github.com/dare-tech/zappl/tree/main/EAs).**
+
+<AccordionGroup>
+  <Accordion title="Installation Status" icon="circle-check">
+    Displays whether Zappl is installed.
+  </Accordion>
+  <Accordion title="Cached Updates" icon="window-restore">
+    Displays which app updates are currently cached locally due to the app(s) being in use.
+  </Accordion>
+  <Accordion title="Deferrals Remaining" icon="timer">
+    Displays how many recurring update deferrals are remaining.
+  </Accordion>
+  <Accordion horizontal title="Last Run Result" icon="flag-pennant">
+    Displays the output from the most recent recurring background update or any forced updates. This can range from simple information, such as whether the user chose to defer or install updates, to details about any errors encountered during the update process.
+  </Accordion>
+  <Accordion horizontal title="Version Installed" icon="code-merge">
+    Displays the version of Zappl installed.
+  </Accordion>
+</AccordionGroup>
+
+#### Adding Extension Attributes to Jamf Pro
+<Info>Download the **Zappl Extension Attributes** above, then follow the steps outlined below to add the `.xml` files to your Jamf Pro server.</Info>
+<Steps>
+  <Step>
+    In Jamf Pro, navigate to _Settings > Computer Management > Extension Attributes_.
+    ![Extension Attributes](/images/ea-settings.webp)
+  </Step>
+  <Step>
+    Click **Upload**.
+    ![Extension Attributes](/images/ea-upload.webp)
+  </Step>
+  <Step>
+    Click **Choose File**, then select the extension attribute you wish to add, and click **Upload**.
+    ![Extension Attributes](/images/ea-upload2.webp)
+  </Step>
+  <Step>
+    Optionally, change the **Inventory Display** dropdown to the category you would like Zappl information to be stored.
+  </Step>
+  <Step>
+    Finally, click **Save**.
+  </Step>
+</Steps>
+    
+
+    
