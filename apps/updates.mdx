@@ -4,34 +4,80 @@ icon: 'cloud-arrow-down'
 description: 'Display inline code and code blocks'
 ---
 
-## Basic
+## Silent Updates
 
-### Inline Code
+By default, the Zappl agent regularly compares installed software versions on client machines to the latest available versions from vendors. When new updates are available, they are securely downloaded and cached locally. The Zappl agent then attempts to update the software silently.<br /><br />Most apps in our catalog can only be updated safely when they're not running.
+>If the apps are closed, the Zappl agent will update the software in the background without interrupting the user.
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+>If an app is in use, the update remains cached locally, and the Zappl agent continues to attempt silent installation.
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+For apps that users rarely close, Zappl employs two strategies: automatic [Scheduled Update Prompts](https://www.notion.so/Scheduled-Update-Prompts-6b92584cccf9456dbb839ad773b287dd?pvs=21) and manual [Forced Updates](https://www.notion.so/Forced-Updates-f9078e6dd5a146a9be06c01c3f1ed2e3?pvs=21).
 
-### Code Block
+<br /><br />
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+## Scheduled Updates
+<Info>Most apps in our catalog must be closed whilst updating in order to ensure the update installs safely. This feature supplements the hourly silent update attempts and ensures apps that are always running are updated regularly.</Info>
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
+Generally speaking, apps such as web browsers, email clients and conferencing apps are rarely closed by users. The Zappl agent is called upon to give your users a nudge towards temporarily quitting the apps that need to update on a recurring interval. The user experience for this is highly customisable and easy to configure via the Zappl custom preferences configuration profile.
 
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+On a regular interval, the Zappl agent runs a scheduled update check in the background. As part of this check, it reads the `com.dare.zappl.preferences` configuration profile settings and determines whether to prompt the user based on the configured run limitations. The run limitation option ensures users are only prompted on your desired recurring interval, e.g., once every day, once every week etc. Additionally, the agent checks for any configured do not disturb settings before prompting users to ensure it only does so when convenient.
+
+<Info>For more information on configuring the preferences configuration profile, see Configuring Custom Preferences.</Info>
+
+
+#### User Experience
+The image below shows a typical custom-branded scheduled update prompt displayed to users when deferrals are enabled and available.
+![User Experience Image](/images/ux-deferral-prompt.webp)
+The below prompt is the grace period prompt shown when deferrals are not available.
+![User Experience Image](/images/ux-no-deferral.webp)
+If configured, the below prompt is shown by default in the top right corner during updates.
+![User Experience Image](/images/ux-update-progress.webp)
+If configured, the below prompt is shown by default in the top right corner once all apps have successfully updated.
+![User Experience Image](/images/ux-update-complete.webp)
+
+<br /><br />
+
+## Forced Updates
+<Info>The forced update option is a feature of the Zappl agent that allows you to install an app update more urgently than the Scheduled Update Prompts feature. This feature is particularly useful when a zero-day vulnerability has been identified, enabling you to patch the affected app as quickly as possible.</Info>
+
+You can use the Deploy Software Script to mark apps for forced updates. The Zappl agent regularly checks for forced update receipts in the background. When it finds a receipt, it takes immediate action. If the app isn't in use, Zappl updates it silently. If the app is in use, Zappl prompts the user to quit the app before updating it.
+
+#### Marking Apps for Forced Updates
+<Info>This example demonstrates marking forced updates with **Jamf Pro**. Before proceeding, ensure you have added the latest Deploy Software Script to your Jamf Pro environment by following the steps outlined in the Deploying Zappl page.</Info>
+
+<Steps>
+    <Step>
+        In Jamf Pro, navigate to _Computers > Policies_ and click **New**.
+    </Step>
+    <Step>
+        Within the **General** payload, set a suitable display name, select the **Zappl** category, select **Recurring Check-in** as the trigger and **Once per computer** as the Execution Frequency.
+        ![Forced Update](/images/forced-policy.webp)
+    </Step>
+    <Step>
+        Navigate to the **Scripts** payload and click **Configure**.
+    </Step>
+    <Step>
+        Locate the **Zappl - Deploy Software** script and click **Add**.
+        ![Forced Update](/images/forced-script.webp)
+    </Step>
+    <Step>
+        Add the **Unique Identifier** to the Application Identifier parameter for the App you are updating (this can be found in the [App Catalog](zappl.co/app-catalog) then set`update` as the Action parameter value. Optionally, set a custom grace period and any allowed deferrals with a Minimum Deferral Window (the amount of time the allowed between deferrals) if desired.
+        ![Forced Update](/images/forced-parameters.webp)
+    </Step>
+    <Step>
+        Navigate to the **Scope** tab, configure your desired scoping target for the update and click **Save**.
+        ![Forced Update](/images/forced-scope.webp)
+    </Step>
+</Steps>
+
+<Info>The scoping target set above is the most basic target for this type of policy and initiates a one-off patch. If desired, create a [Smart Computer Group](https://learn.jamf.com/en-US/bundle/jamf-pro-documentation-11.9.0/page/Smart_Groups.html#ID-00032060) which defines computers running a specified vulnerable version of the App, then set the Execution Frequency as **Ongoing** to ensure that the known vulnerability is patched on an ongoing basis.</Info>
+
+#### User Experience
+The below prompt is a typical prompt shown when Firefox has been marked for a forced update and an update is required for Firefox. Deferrals have been configured for the forced update.
+![Forced Update](/images/ux-forced-prompt.webp)
+
+The below prompt is shown during the forced update when the update progress prompt is enabled.
+![Forced Update](/images/ux-forced-update.webp)
+
+The below prompt is shown after a forced updated when the display complete prompt setting is enabled.
+![Forced Update](/images/ux-forced-complete.webp)
