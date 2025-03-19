@@ -1,37 +1,22 @@
 ---
 title: 'Preferences'
 icon: 'code'
-description: 'Display inline code and code blocks'
+description: 'If you are looking to customise the JSON Schema in Jamf Pro or XML for other MDMs, you can use this guide to understand the purpose of each preference key.'
 ---
 
-## Basic
-
-### Inline Code
-
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
-
-### Code Block
-
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
-
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+<Tabs>
+    <Tab title="Jamf Pro">
+        #### Preference Structure
+        The JSON schema profile is comprised of three main preference dictionaries; the **General Options**, the **Scheduled Update Options** and the **Forced Update Options**.
+        ![App Install](/images/json-structure.webp)
+        
+        The scheduled and forced update options have identical preference keys that serve the same purpose for the scheduled and forced update mechanisms respectively, although the forced update options require fewer preferences.
+        
+        This is partly because deferrals and grace periods for forced updates are configured on a per-app basis when you mark apps for forced updates, and partly because there is slightly less functionality required in the forced update feature.
+        
+        ## JSON Preference Key Guide
+        
+    </Tab>
+    <Tab title="Other MDMs">
+    </Tab>
+</Tabs>

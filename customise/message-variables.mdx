@@ -1,37 +1,31 @@
 ---
 title: 'Message Variables'
 icon: 'pen-to-square'
-description: 'Display inline code and code blocks'
+description: 'If you choose to customise the text on any of the update prompts, you can use variables to include important information such as deferrals remaining, configured grace periods etc as part of your custom message.'
 ---
 
-## Basic
+#### Reference Table
 
-### Inline Code
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+| Variable Name | Description |
+| :---- | :---- |
+| `**Example Text**` | Displays text in **bold**. |
+| `\n\n` | Adds a line break. |
+| `updateButton` | Displays the update button label. |
+| `deferButton` | Displays the Defer button label. |
+| `deferCount` | Displays the number of remaining deferrals the user is allowed. |
+| `updateCount` | Displays the number of pending App updates. |
+| `appName` | When only one App has a pending update, this variable displays the name of the App which has the pending update.|
+| `appList` | Displays a comma separated list of Apps when more than one App has a pending update. |
+| `gracePeriod` | Displays the configured grace period. <Note>There is no requirement to specify minutes/hours after the variable - this is already included as part of the variable.</Note> |
+
+<br />
+
+#### Example Custom Message
 
 ```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+**Important!** The following apps need to quit to install updates:\n\n**appList**\n\nPlease save your work and click **updateButton**\n\nAlternatively, click **deferButton** to defer the update until later\n\nYou have deferCount remaining deferrals
 ```
 
-### Code Block
-
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
-
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+Whilst using the horizontal list prompt type, the above custom text would present the following prompt to the user.
+![Custom Variables](/images/variables-example.webp)

@@ -1,37 +1,40 @@
 ---
 title: 'Installations'
 icon: 'arrow-down-to-line'
-description: 'Display inline code and code blocks'
+description: 'Ensure users always install the latest version of an app.'
 ---
 
-## Basic
+>**In addition to patching apps, Zappl can install applications. This feature is one of the Command Line Options available with the Zappl agent, making it easy to integrate into Jamf Pro policies using the Deploy Software Script.**
 
-### Inline Code
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+Traditionally, to deploy applications via Jamf Pro, administrators have to manually package the app installer and deploy it through a Jamf Pro policy. This approach quickly leads to outdated installers, requiring frequent updates to maintain compliance.
 
-### Code Block
+By replacing existing app deployment policies in Jamf Pro with Zappl policies, this issue is resolved. Zappl ensures the installation of the latest version of the app, eliminating the need for manual updates.
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+#### Creating an App Install Policy
+<Steps>
+    <Step>
+        In Jamf Pro, navigate to _Computers > Policies_ and click **New**.
+    </Step>
+    <Step>
+        In the **General** payload, configure a suitable **Display Name**, **Category**, **Trigger** and **Execution Frequency**.
+        ![App Install](/images/install-policy.webp)
+    </Step>
+    <Step>
+        Navigate to the **Scripts** payload and click **Configure**.
+    </Step>
+    <Step>
+        Locate the **Zappl - Deploy Software** script and click **Add**.
+        ![App Install](/images/install-script.webp)
+    </Step>
+    <Step>
+        Enter the **Unique Identifier** as the **Application Identifier** parameter value (The unique identifier can be found in the [App Catalog](zappl.co/app-catalog)), then enter `install` as the **Action** parameter value for a silent install, or `install-showProgress` as the **Action** parameter value for an install with an installation progress prompt (useful for Jamf Self Service installs).
+        ![App Install](/images/install-parameters.webp)
+    </Step>
+    <Step>
+        Navigate to the **Scope** tab, configure your desired scoping target for the Application install and click **Save**.
+        ![App Install](/images/install-scope.webp)
+    </Step>
+</Steps>
