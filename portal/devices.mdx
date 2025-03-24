@@ -1,59 +1,27 @@
 ---
 title: 'Devices'
 icon: 'laptop'
-description: 'Add image, video, and other HTML elements'
+description: 'The Devices page displays a comprehensive list of all devices in your estate.'
 ---
 
-<img
-  style={{ borderRadius: '0.5rem' }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+The Zappl portal provides an overview of each device's compliance levels and essential information, including device name, associated user, macOS version, app count, and last check-in date. Clicking on a device takes you to the individual [Device Records](/portal/device-records).
 
-## Image
+## Device List
 
-### Using Markdown
+You can use the search field at the top of the page to quickly locate a specific device within your estate.
+![Portal Devices](/images/portal-device-search.webp)
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+The following device attributes are all searchable in this field:
 
-```md
-![title](/path/image.jpg)
-```
+- **Device Name**
+- **Last User** (This is the local username)
+- **User Full Name**
+- **Serial Number**
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+Each column in the device list allows sorting of devices either alphanumerically or by compliance levels. An arrow indicates the currently sorted column, pointing up or down to show the sort direction.
+![Portal Devices](/images/portal-devices-columns.webp)
 
-### Using Embeds
+In the compliance column, beneath the blue compliance bar, you'll find two figures. The left figure represents the number of compliant apps, while the right figure shows the number of non-compliant apps. Clicking either figure filters the app list for that device. For example, clicking the **compliant apps** figure displays all compliant apps for that specific device.
+![Portal Devices](/images/portal-devices-compliance.webp)
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
-
-```html
-<img height="200" src="/path/image.jpg" />
-```
-
-## Embeds and HTML elements
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  style={{ width: '100%', borderRadius: '0.5rem' }}
-></iframe>
-
-<br />
-
-<Tip>
-
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
-
-</Tip>
-
-### iFrames
-
-Loads another HTML page within the document. Most commonly used for embedding videos.
-
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
-```
+Clicking either the device name or the **View** button takes you to individual [Device Records](portal/device-records).

@@ -1,88 +1,89 @@
 ---
 title: 'Device Records'
 icon: 'magnifying-glass'
-description: 'Text, title, and styling in standard markdown'
+description: 'Zappl portal device records contain information specific to that device.'
 ---
 
-## Titles
+<Info>Clicking either the device name or the **View** button in the device list will take you to the device record.</Info>
 
-Best used for section headers.
+## Device Information
 
-```md
-## Titles
-```
+The top half of each device record displays information about the device on the left hand column, and information relating to Zappl on the right hand column.
 
-### Subtitles
+#### Information Breakdown
 
-Best use to subsection headers.
+| Label | Description |
+| :-------- | :-------- |
+| `Name` | Displays the device name. |
+| `Last User` | Displays the username of the last user logged in to the device. |
+| `Full User Name` | Displays the full name of the last user logged in to the device. |
+| `Model` | Displays the the device model, e.g., MacBook Pro. |
+| `Serial Number` | Displays the unique serial number for the device. |
+| `macOS Version` | Displays the version of macOS running on the device. |
+| `FileVault` | Displays whether FileVault disk encryption is enabled on the device. |
+| `SIP` | Displays whether system integrity protection is enabled on the device. |
+| `Gatekeeper` | Displays whether Apple’s Gatekeeper is enabled on the device. |
+| `Disk Space` | Displays the available and total disk space on the device. |
+| `Zappl Version` | Displays the version of Zappl installed on the device. |
+| `Self Updates` | Displays whether Zappl automatically updates itself when new versions are available. This setting is managed using the Automatic Self Updates preference. |
+| `Prompts Allowed` | Displays whether the recurring Scheduled Update Prompts are enabled on the device. This setting is managed using the Allow Recurring Update Prompts preference. |
+| `Deferrals Allowed` | Displays whether deferrals are configured for the Scheduled Update Prompts. This setting is managed using the Deferral Options preference. |
+| `Background Updates` | Displays whether automatic silent App Updates are enabled on the device. This setting is managed using the Allow Hourly Attempt Updates preference. |
+| `Deferral Limit` | Displays the configured allowed deferral count for Scheduled Update Prompts. This setting is managed using the Deferral Options preference. |
+| `Deferrals Remaining` | Displays the number of deferrals remaining on the device. |
+| `Last Check-In` | Displays the time and date the device last checked in and submitted report data to the Zappl portal. |
+| `Last Prompt` | Displays the time and date the Scheduled Update Prompts feature last prompted the user to install pending updates. |
+| `Next Prompt` | Displays the time and date the Scheduled Update Prompts feature will start attempting to install updates by prompting the user again. |
+| `Last Prompt Result` | Displays the result of the last Scheduled Update Prompts interaction, e.g. User Deferred. |
 
-```md
-### Subtitles
-```
+<Warning>From the above table, **macOS Version**, **FileVault**, **SIP**, **Gatekeeper**, and **Disk Space** are not controlled by Zappl. We display this data for informational purposes only. Use your MDM to enforce things like macOS Updates, FileVault etc.</Warning>
 
-<Tip>
+#### Example
 
-Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
+In the _ACME_ Zappl environment, we've determined from the dashboard view that while eligible device compliance is **100%**, total device compliance is only **88%**.
 
-</Tip>
+A closer look at the devices list reveals this is due to `Sophia's MacBook` having a remarkably low compliance score of just **7%**. 
 
-## Text Formatting
+Upon examining the device record, we see that this device hasn't affected the eligible compliance because it's considered _non-eligible_ due to the user deferring pending updates when prompted.
+![Portal Device Record Example](/images/portal-device-record.webp)
 
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+<Note>`Prompts Allowed` or `Background Updates` showing as disabled, or the `Last Check-in` timestamp being older than 14 days ago would also cause the device to become non-eligible.<br />For additional app-based context related to the example scenario above, please refer to the **Applications** section below.</Note>
 
-| Style         | How to write it   | Result          |
-| ------------- | ----------------- | --------------- |
-| Bold          | `**bold**`        | **bold**        |
-| Italic        | `_italic_`        | _italic_        |
-| Strikethrough | `~strikethrough~` | ~strikethrough~ |
+<br />
 
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
+## Applications
 
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
+Below the device information header, you'll find a tab that lets you switch between the device-specific Applications and Logs views. The Applications view is selected by default.
+![Portal App View](/images/portal-app-view.webp)
 
-| Text Size   | How to write it          | Result                 |
-| ----------- | ------------------------ | ---------------------- |
-| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
+The Applications view displays a list of all apps installed on the device, offering context about their status and reasons for non-compliance.
 
-## Linking to Pages
+To inspect a specific app, use the **Search Applications** field to filter the list.
+![Portal App Search](/images/portal-app-search.webp)
 
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
+You can also sort by the `Name`, `Latest Version`, `Date Released` and `Compliance` columns. 
 
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
+In the following example, we examine the scenario above more closely to understand why `Sophia's MacBook` has such low compliance. The image reveals that Sophia has 15 apps installed, with only VLC player running the latest available version — making it the sole compliant application.
+![Portal App Example](/images/portal-app-list.webp)
 
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
+For a more detailed inspection of each app, click the **Details** button in the corresponding row. Clicking this button reveals additional details, such as the app's macOS requirements, whether updates have been permitted for the app, and whether an update is cached locally because the app is currently in use.
 
-## Blockquotes
+The image below shows that the Firefox update is cached locally because the user is currently running the application. As a result, it couldn't be updated silently and required a user prompt, which Sophia then deferred.
+![Portal App Details](/images/portal-app-info.webp)
 
-### Singleline
+<Note>If **Updates Allowed** is set to false for a given application, it renders that app ineligible for both device-based and app-based compliance calculations. To enable updates for the app, see Allowed Installs and Excluded Installs.</Note>
 
-To create a blockquote, add a `>` in front of a paragraph.
+<br />
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
+## Logs
 
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
-```
+The Logs view displays error or warning messages generated by the Zappl agent within the last 30 days. This feature is invaluable for troubleshooting app update or install issues, as it provides quick access to relevant errors and warnings without the need to sift through the full Zappl logs.
+![Portal Log View](/images/portal-log-view.webp)
 
-### Multiline
+By default, all errors and warnings are displayed together. To view only errors or only warnings, simply click the **Errors** or **Warnings** filter buttons.
+![Portal Log Filters](/images/portal-log-filters.webp)
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+You can utilise the **Search Logs** field to quickly filter out logs using key words.
+![Portal Log Search](/images/portal-log-search.webp)
 
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-```
-
-### LaTeX
-
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
-
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-
-```md
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-```
+<Warning>All logs are purged from the portal after 30 days. To view older logs, refer to [Logs and Errors](/other/logs-errors).</Warning>

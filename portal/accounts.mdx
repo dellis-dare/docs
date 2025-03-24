@@ -1,37 +1,31 @@
 ---
 title: 'Accounts'
 icon: 'user'
-description: 'Display inline code and code blocks'
+description: 'Manage access to your dedicated Zappl customer portal.'
 ---
 
-## Basic
+The first admin account in your online Zappl portal is created during the initial sign-up process.
 
-### Inline Code
+<Warning>This account becomes the super admin and cannot be deleted, so it's best to use a dedicated mailbox for this purpose — for example, zappl@acme.corp — rather than an individual's email address.</Warning>
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+When you sign up, an email invitation is sent to the provided address. After accepting this invite, you'll be prompted to create a password and set up two-factor authentication. Once logged in, you can create additional admin and standard accounts using the steps outlined below.
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+#### Creating User Accounts
 
-### Code Block
-
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
-
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+<Steps>
+    <Step>
+        On the navigation bar to the left, under **Management**, select **Accounts**, then select **Create New Account**.
+        ![Portal Account](/images/portal-createaccount.webp)
+        
+    </Step>
+    <Step>
+        In the `Create Account` dialog, enter the email address, name, and select an account role from the dropdown. Once done, click **Create**.
+        <Info>The **Admin** role provides full access to manage user accounts and reports.<br />The **Standard** role is read-only, allowing users to log in and view dashboards, but not manage users or reports.</Info>
+        ![Portal Account](/images/portal-accountrole.webp)
+    </Step>
+    <Step>
+        The new account will now be listed under the main accounts section and will have a `Pending` status until the user accepts the email invitation and successfully sets up their password and two-factor authentication.
+        <Info>To modify the email address for the user after creation, click the pencil icon, change the email address and click save. A new invite will be sent to the new email address.<br />If the invite expires, simply click the bin icon on the user item to remove the user, and repeat the above account creation steps to send a new invite.</Info>
+        ![Portal Account](/images/portal-accounts.webp)
+    </Step>
+</Steps>

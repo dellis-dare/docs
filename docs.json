@@ -52,6 +52,7 @@
           {
             "group": "Online Portal",
             "pages": [
+              "portal/general",
               "portal/accounts",
               "portal/dashboard",
               "portal/devices",

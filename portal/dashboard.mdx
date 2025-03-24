@@ -1,110 +1,65 @@
 ---
 title: 'Dashboard'
 icon: 'window'
-description: Reusable, custom snippets to keep content in sync
+description: 'The dashboard is the main landing page in the Zappl portal. Here, you will find an overview of your device and app compliance, as well as any relevant alerts.'
 ---
 
-import SnippetIntro from '/snippets/snippet-intro.mdx';
+## Devices
 
-<SnippetIntro />
+The device widget on the dashboard displays an average compliance level for all devices in your estate. Zappl calculates app compliance for each device, sums the percentages, and divides by the total number of devices to obtain the average figures.
 
-## Creating a custom snippet
+There are two compliance figures that can be viewed using the tab — **Eligible Compliance** and **All Compliance**.
 
-**Pre-condition**: You must create your snippet file in the `snippets` directory.
+![Zappl Portal](/images/portal-compliance.webp)
 
-<Note>
-  Any page in the `snippets` directory will be treated as a snippet and will not
-  be rendered into a standalone page. If you want to create a standalone page
-  from the snippet, import the snippet into another file and call it as a
-  component.
-</Note>
+#### Eligible Compliance
 
-### Default export
+Eligible Compliance is designed to calculate compliance **only for devices that meet specific eligibility criteria**. For a device to be considered eligible, it must meet the following requirements:
 
-1. Add content to your snippet file that you want to re-use across multiple
-   locations. Optionally, you can add variables that can be filled in via props
-   when you import the snippet.
+<Check>The device has checked in within the last 14 days.</Check>
+<Check>The user hasn't deferred any pending updates on the device.</Check>
+<Check>Updates are enabled on the device (including silent updates, update prompts, and per-app updates).</Check>
 
-```mdx snippets/my-snippet.mdx
-Hello world! This is my content I want to reuse across pages. My keyword of the
-day is {word}.
-```
+This feature allows you to easily exclude irrelevant devices from your statistics, providing more accurate figures at the click of a button.
 
-<Warning>
-  The content that you want to reuse must be inside the `snippets` directory in
-  order for the import to work.
-</Warning>
+#### All Compliance
 
-2. Import the snippet into your destination file.
+All Compliance represents the total device compliance, considering every device in your estate without excluding any from the calculations.
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
+<br />
+## Applications
 
-import MySnippet from '/snippets/path/to/my-snippet.mdx';
+The Applications widget displays average compliance on an application basis for all apps installed across your estate. Similar to device compliance, Zappl calculates this by determining compliance levels for each app found across your estate, summing them, and dividing by the total number of apps.
 
-## Header
+Application compliancy follows the same theme as the device based compliancy — **Eligible Compliance** and **All Compliance**.
+![Zappl Portal](/images/portal-complianceApp.webp)
 
-Lorem impsum dolor sit amet.
+#### Eligible Compliance
+Eligible Compliance is designed to calculate compliance **only for apps that meet specific eligibility criteria**. For an app to be considered eligible, it must meet the following requirements:
 
-<MySnippet word="bananas" />
-```
+<Check>The app is installed on a device that has checked in within the last 14 days.</Check>
+<Check>The user hasn't deferred updates for the app.</Check>
+<Check>The app is installed on a device that has updates enabled (including silent updates, update prompts, and per-app updates).</Check>
 
-### Reusable variables
+This feature allows you to easily exclude irrelevant apps from your statistics, providing more accurate figures at the click of a button.
 
-1. Export a variable from your snippet file:
+#### All Compliance
+All Compliance represents the total app compliance, considering every app in your estate without excluding any from the calculations.
 
-```mdx snippets/path/to/custom-variables.mdx
-export const myName = 'my name';
+<br />
 
-export const myObject = { fruit: 'strawberries' };
-```
+## Alerts
+The alerts widget highlights the following scenarios:
 
-2. Import the snippet from your destination file and use the variable:
+- Computers with _total compliance_ below **50%**
+- Computers that _haven't checked in_ for **7+ days**
+- Computers with _errors_ in the last **7 days**
+- Computers with _warnings_ in the last **7 days**
+- Computers with **less than 10%** _available disk space_
+- Computers where _updates_ are **disabled**
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
+![Portal Alerts](/images/portal-alerts.webp)
 
-import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
+Clicking the **Details** button shows the specific devices associated with each alert type. You can then click the device name to be taken to the [device record](/portal/device-records) to see more information.
 
-Hello, my name is {myName} and I like {myObject.fruit}.
-```
-
-### Reusable components
-
-1. Inside your snippet file, create a component that takes in props by exporting
-   your component in the form of an arrow function.
-
-```mdx snippets/custom-component.mdx
-export const MyComponent = ({ title }) => (
-  <div>
-    <h1>{title}</h1>
-    <p>... snippet content ...</p>
-  </div>
-);
-```
-
-<Warning>
-  MDX does not compile inside the body of an arrow function. Stick to HTML
-  syntax when you can or use a default export if you need to use MDX.
-</Warning>
-
-2. Import the snippet into your destination file and pass in the props
-
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
-
-import { MyComponent } from '/snippets/custom-component.mdx';
-
-Lorem ipsum dolor sit amet.
-
-<MyComponent title={'Custom title'} />
-```
+![Portal Alerts](/images/portal-alert-details.webp)
