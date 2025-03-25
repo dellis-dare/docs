@@ -1,87 +1,39 @@
 ---
 title: 'Applications'
 icon: 'grid-2-plus'
-description: 'The navigation field in docs.json defines the pages that go in the navigation menu'
+description: 'The Applications page displays a comprehensive list of all applications in your estate that can currently be (and are currently being) patched by Zappl.It does not list every application available in our [App Catalog](zappl.co/app-catalog).'
 ---
 
-The navigation menu is the list of links on every website.
+## Application List
 
-You will likely update `docs.json` every time you add a new page. Pages do not show up automatically.
+This list shows your compliance from an application point of view, rather than based on your devices. It is sorted alphabetically by default, however you can sort all columns in this table - making it great for seeing options like your least-compliant applications, how many applications the computers have installed, and the latest updates that are available through Zappl.
 
-## Navigation syntax
+You can also search for specific applications using the search bar, allowing you to quickly pinpoint what you need.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+<Info>The search bar goes further than just application name - it will also search the **description**, **identifier**, **developer** and **more** against what you have typed in.</Info>
 
-<CodeGroup>
+![Portal Application List](/images/portal-app-overview.webp)
 
-```json Regular Navigation
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Getting Started",
-          "pages": ["quickstart"]
-        }
-      ]
-    }
-  ]
-}
-```
+<br />
 
-```json Nested Navigation
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Getting Started",
-          "pages": [
-            "quickstart",
-            {
-              "group": "Nested Reference Pages",
-              "pages": ["nested-reference-page"]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+## Application Compliance
 
-</CodeGroup>
+Within the Compliance column, you have the option to view filtered lists of which devices (that have the app installed) are compliant (left), or non-compliant (right).
+![Portal Application Compliance](/images/portal-app-compliance1.webp)
+![Portal Application Compliance](/images/portal-app-compliance2.webp)
+![Portal Application Compliance](/images/portal-app-compliance3.webp)
 
-## Folders
+<br />
 
-Simply put your MDX files in folders and update the paths in `docs.json`.
+## Application Details
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+Clicking on either the application name or the **Details** button will show you further information regarding that app, such as the install path, minimum OS required for install and the expected Code Signature that Zappl checks against when running it’s [Security checks](/about/security).
+![Portal Application Details](/images/portal-app-details.webp)
 
-<Warning>
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
 
-</Warning>
 
-```json Navigation With Folder
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Group Name",
-          "pages": ["your-folder/your-page"]
-        }
-      ]
-    }
-  ]
-}
-```
 
-## Hidden Pages
 
-MDX files not included in `docs.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+
+
