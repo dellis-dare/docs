@@ -1,37 +1,120 @@
 ---
 title: 'Command Line'
 icon: 'terminal'
-description: 'Display inline code and code blocks'
+description: 'The Zappl agent is essentially a macOS command line tool.'
 ---
+![Command Line Terminal Help Page](/images/command-line-terminal.webp)
 
-## Basic
+For the day to day running of Zappl, the recurring run launch daemon initiates background, scheduled and forced updates by utilising the command line options. Likewise, the @Deploy Software Script which integrates with MDMs such as Jamf Pro utilises the command line options for features such as Application installs, Jamf Pro Self Service updates and marking Apps for forced updates.
 
-### Inline Code
+The Zappl agent is located in the `/Library/Application Support/DARE/Zappl/Bin/` directory, and is symlinked at `/usr/local/bin/zappl`.
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+The command line options available are useful in scenarios such as when testing or troubleshooting Zappl workflows.
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
 
-### Code Block
+## Command Line Options
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+<Note>All options must be prefixed with `sudo zappl` (unless you push any of these options through an MDM which executes them as _root_ - in that case `sudo` is not required).</Note>
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+<AccordionGroup>
+    <Accordion title="--help | -h">
+        #### Show Help
+        ```bash
+        --help
+        ```
+        Displays a Zappl help page. _This does not require elevated privileges._
+    </Accordion>
+    <Accordion title="--update check | -u check">
+        #### Check for Application Updates
+        ```bash
+        --update check
+        ```
+        This option is useful when testing update workflows as it tells Zappl to check for and download any available App updates. This option is automatically run in the background once every hour, and is responsible for silently installing updates for Apps that are not running and caching updates for Apps that are running. If you are testing scheduled or forced update workflows, ensure that the App you want to be prompted to update is open when you run this, otherwise the App will be silently updated immediately after the update has downloaded and no prompts will be displayed.
+    </Accordion>
+    <Accordion title="--update run | -u run">
+        #### Begin Recurring Run Mechanism
+        ```bash
+        --update run
+        ```
+        <Warning>**Not for general use.**</Warning>
+        This option is called upon once every **15 minutes** by the recurring run daemon located at `/Library/LaunchDaemons/com.dare.zappl.run.plist` and is responsible for checking for forced update receipts, checking for new updates on an hourly basis and running the scheduled update mechanism in line with any configured custom preferences.
+    </Accordion>
+    <Accordion title="--update force | -u force">
+        #### Force Application Updates
+        ```bash
+        --update force
+        ```
+        This option can be called manually to tell the agent to check for any Apps that have been marked for forced updates. If a forced update receipt is found, the agent will attempt the update. If no receipt is found, the agent will exit and take no further action.<br />To mark an App for a forced update, see [Forced Updates](/apps/updates#forced-updates). This option is also called automatically every **15 minutes** as part of the run flag by the main recurring run daemon located at `/Library/LaunchDaemons/com.dare.zappl.run.plist`.
+    </Accordion>
+    <Accordion title="--update prompt | -u prompt">
+        #### Prompt to Install Cached Updates
+        ```bash
+        --update prompt
+        ```
+        This option can be called manually to tell the agent to check for any pending cached updates. If the agent finds cached updates, it then checks [Run Limitation Options]() and if necessary prompts the user to install the pending cached updates.<br />Using this option at the command line will simulate what happens when the daemon calls the option. This is a good way to test the scheduled updates workflow on-demand after [Configuring Custom Preferences](/customise/preferences).<br />This option is also called automatically every **15 minutes** as part of the run flag by the main recurring run daemon located at `/Library/LaunchDaemons/com.dare.zappl.run.plist`.
+    </Accordion>
+    <Accordion title="--update testPrompt | -u testPrompt">
+        #### Prompt to Install Cached Updates and Override Limitations
+        ```bash
+        --update testPrompt
+        ```
+        This is identical to the `sudo zappl --update prompt` flag, with the exception that all run and elapsed time limitations will be **ignored**. If you are using the command line options to test Zappl prompts, this flag is ideal as it can be used to repeatedly display the scheduled update prompts on-demand.
+    </Accordion>
+    <Accordion title="--update timerPrompt | -u timerPrompt">
+        #### On-Demand Cached Update Grace Period Prompt
+        ```bash
+        --update timerPrompt
+        ```
+        When this option is called, the grace period prompt normally shown when all deferrals have been used is displayed. This option is mainly used during testing, or when creating custom bespoke workflows for forcing updates on set deadlines as opposed to the recurring automation that Zappl natively offers.
+    </Accordion>
+    <Accordion title="--update selfService | -u selfService">
+        #### On-demand Jamf Self Service Updates
+        ```bash
+        --update selfService
+        ```
+        This is the option utilised by the @Deploy Software Script as part of a Jamf Pro policy when a user initiates a Self Service update. The option can be called at any time via the command line and you will get the same result as seen when a user initiates the policy in Jamf Self Service.
+    </Accordion>
+    <Accordion title="--update self | -u self">
+        #### Check for Zappl Component Updates
+        ```bash
+        --update self
+        ```
+        This option checks for any available updates for Zappl and it’s components. In order to utilise this option, @Automatic Self Updates must be enabled.
+    </Accordion>
+    <Accordion title='--install "AppIdentifier" | -i "AppIdentifier"'>
+        #### Silent Application Installs
+        ```bash
+        --install "AppIdentifier"
+        ```
+        This is the option utilised by the @Deploy Software Script when performing a silent Application install. When calling this option via command line, replace _"AppIdentifier"_ with the App's Unique Identifier which can be found in our [App catalog](zappl.co/app-catalog).
+    </Accordion>
+    <Accordion title='--installProgress "AppIdentifier" | -ip "AppIdentifier"'>
+        #### Application Installs with Installation Progress
+        ```bash
+        --installProgress "AppIdentifier"
+        ```
+        This is the option utilised by the @Deploy Software Script when using the `install-showProgress` action to perform an Application install which displays installation progress. When calling this option via command line, replace `"AppIdentifier"` with the App's Unique Identifier which can be found in our [App catalog](zappl.co/app-catalog).
+    </Accordion>
+    <Accordion title='--check “AppIdentifier” | -c “AppIdentifier”'>
+        #### Validate an Application Installation Format
+        ```bash
+        --check “AppIdentifier”
+        ```
+        <Warning>**Not for general use.**</Warning>
+        Outputs whether the defined App installation format is valid. This is utilised by the @Deploy Software Script when validating if the defined App is valid before proceeding and marking the App for a forced update. For App installation formats, see the online [App Catalog](zappl.co/app-catalog).
+    </Accordion>
+    <Accordion title='--report submit | -r submit'>
+        #### Send Report Information to Zappl
+        ```bash
+        --report submit
+        ```
+        This will send updated report information to the Zappl server, on-demand, which allows up-to-date information on application versions and more to be viewed in the online [Zappl Portal](/portal/general).
+    </Accordion>
+    <Accordion title='--version | -v'>
+        #### Output Current Zappl Version
+        ```bash
+        --version
+        ```
+        Displays the version of Zappl running on the computer. _This does not require elevated privileges._
+    </Accordion>
+</AccordionGroup>
