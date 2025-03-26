@@ -1,37 +1,48 @@
 ---
 title: 'Uninstall Zappl'
 icon: 'xmark'
-description: 'Display inline code and code blocks'
+description: 'If you need to reinstall or completely uninstall Zappl, use the included `uninstall` executable.'
 ---
 
-## Basic
+> Zappl's `uninstall` executable is located at `/Library/Application Support/DARE/Zappl/Bin/uninstall` and can be run from the command line or as part of a script.
 
-### Inline Code
+## Uninstalling Zappl with Terminal
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+To uninstall Zappl using the Terminal application; simply launch Terminal, input sudo /Library/Application\ Support/DARE/Zappl/Bin/uninstall and press enter.
+<Steps>
+    <Step>
+        Launch **Terminal**
+    </Step>
+    <Step>
+        Input `sudo /Library/Application\ Support/DARE/Zappl/Bin/uninstall`
+        <Note>Sufficient user privileges will be needed to run `sudo` commands.</Note>
+    </Step>
+    <Step>
+        Press **Enter**.
+    </Step>
+</Steps>
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+<br />
 
-### Code Block
+## Uninstalling Zappl with Jamf Pro
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
-
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+<Steps>
+    <Step>
+        In Jamf Pro, navigate to _Computers > Policies_ and click **New**
+    </Step>
+    <Step>
+        In the _General_ payload, configure a suitable `Display Name`, `Category`, `Trigger` and `Execution Frequency`
+        ![Zappl Uninstall Policy](/images/other-uninstall-policy.webp)
+    </Step>
+    <Step>
+        Navigate to the _Files and Processes_ payload and click **Configure**
+    </Step>
+    <Step>
+        In the _Execute Command_ field, input `/Library/Application\ Support/DARE/Zappl/Bin/uninstall`
+        ![Zappl Uninstall Command](/images/other-uninstall-command.webp)
+    </Step>
+    <Step>
+        Navigate to _Scope_, select your desired scope target for the Zappl uninstall and click **Save**.
+        ![Zappl Uninstall Scope](/images/other-uninstall-scope.webp)
+    </Step>
+</Steps>
