@@ -8,6 +8,86 @@ description: 'If things _do_ go wrong, Zappl provides error codes which can be l
 
 <Info>Zappl's two user-initiated features — [App Installs](/apps/installs) and [Self Service Updates](/deploy/jamf-pro#self-service-updates) — display prompts with error codes when encountering issues during initialisation. Users can provide these error codes to administrators for troubleshooting.<br />Refer to the error table below for explanations and remediation steps for each potential error code.</Info>
 
+<AccordionGroup>
+    <Accordion title='001'>
+        #### Cause
+        Zappl certificates could not be downloaded and added to the macOS keychain.
+        ### Remediation
+        Verify that the Zappl [Network Requirements](/about/requirements) have been met. Zappl needs to have access to download certificates prior to importing them to the macOS keychain. Specifically, this requires outbound network access using port `443 (HTTPS)` to **zappl.co**.
+    </Accordion>
+    <Accordion title='002'>
+        #### Cause
+        One or more Zappl keychain components could not be accessed.
+        ### Remediation
+        Verify the logged in user has a valid accessible keychain. If the issue persists, reinstall Zappl.
+    </Accordion>
+    <Accordion title='003'>
+        #### Cause
+        A duplicate Zappl process has hung and cannot be terminated.
+        ### Remediation
+        Use the Activity Monitor to kill the duplicate Zappl instance. If the issue persists, restart the computer and try again.
+    </Accordion>
+    <Accordion title='004'>
+        #### Cause
+        The current version of macOS is unsupported.
+        ### Remediation
+        Zappl [requires at least macOS Ventura](/about/requirements) in order to run. Upgrade the computer to the latest version of macOS, or at least macOS 13 (Ventura).
+    </Accordion>
+    <Accordion title='005'>
+        #### Cause
+        An internet connection could not be detected.
+        ### Remediation
+        Connect the computer to the internet and verify that the connection is stable. If the issue persists, verify the Zappl [Network Requirements](/about/requirements) have been met.
+    </Accordion>
+    <Accordion title='006'>
+        #### Cause
+        The Zappl server could not be reached.
+        ### Remediation
+        Verify that the network connection is stable and that the Zappl [Network Requirements](/about/requirements) have been met. If the issue persists, the service could be experiencing a temporary outage.
+    </Accordion>
+    <Accordion title='007'>
+        #### Cause
+        The Zappl server could not be reached whilst attempting to validate the configured license keys.
+        ### Remediation
+        Verify that the network connection is stable and that the Zappl [Network Requirements](/about/requirements) have been met. If the issue persists, the service could be experiencing a temporary outage.
+    </Accordion>
+    <Accordion title='008'>
+        #### Cause
+        The configured activation token is invalid.
+        ### Remediation
+        Ensure that the activation token in your Zappl custom preferences configuration profile is valid. If you do not have your activation token, please [contact us](mailto:helpdesk@dare.tech) to obtain this.
+    </Accordion>
+    <Accordion title='009'>
+        #### Cause
+        The configured public key is invalid.
+        ### Remediation
+        Ensure that the public key in your Zappl custom preferences configuration profile is valid. If you do not have your public key, please [contact us](mailto:helpdesk@dare.tech) to obtain this.
+    </Accordion>
+    <Accordion title='010'>
+        #### Cause
+        One or more components required by Zappl could not be updated/installed.
+        ### Remediation
+        Verify that the network connection is stable and that the Zappl [Network Requirements](/about/requirements) have been met. If the issue persists, the service could be experiencing a temporary outage.
+    </Accordion>
+    <Accordion title='011'>
+        #### Cause
+        The Zappl installation directory is corrupt and could not be accessed.
+        ### Remediation
+        Reinstall Zappl. If the issue persists, please [contact us](mailto:helpdesk@dare.tech).
+    </Accordion>
+</AccordionGroup>
+
 <br />
 
 ## Frequently Encountered Issues
+
+| Symptom | Explanation | Remediation |
+| :------ | :---------- | :---------- |
+| The Install Zappl.zsh script fails with `Error: The Zappl deployment failed because the installer script is inaccessible. Please check the Zappl network requirements and try again`. | The script was blocked when attempting to download the Zappl installer components from `zappl.co`. | Verify that the network connection is stable and that the Zappl [Network Requirements](/about/requirements) have been met. Specifically, this requires outbound network access using port `443` (HTTPS) to `zappl.co`.<br />If the issue persists, the service could be experiencing a temporary outage. |
+| App installation fails with `Error: Not enough disk space available to download and install the $appName update`. | The app installer size is greater than the available disk space on the computer, preventing it from being downloaded. | Free up disk space on the computer. The Zappl log displays how much space is required for the particular update/install, however it is advisable to free up as much space as possible to prevent further installs/updates from failing. |
+| App installation fails with `Error: $appName is not compatible with this macOS version`. | The installed version of macOS does not meet the macOS requirements for the app. | Review the Zappl log to see the macOS requirement for the app.<br />If the installed macOS version is too far behind, upgrade the computer to the supported macOS version.<br />If the app can only be installed on older versions of macOS, limit installs of the app to computers which meet the required macOS criteria. |
+| App installation fails with `Error: The $appName installer could not be downloaded`. | Zappl could not download the installer for the app in question. | Verify that full network access is permitted to the software vendor’s public download URLs and try again.<br />If the issue persists, the vendor may be experiencing a temporary outage. |
+| App installation fails with `Error: Could not mount disk image for $appName`. | The disk image containing the software was successfully downloaded, but couldn’t be mounted. | Remove any disk image restrictions. Disk images can be blocked using MDM configuration profiles and other third party security tools. Blocking disk images will cause any apps with .dmg installers to fail, therefore lifting these restrictions will resolve this issue.<br />If no restrictions are in place, the downloaded disk image may be damaged. In this case, retry the install/update and if the issue persists please [contact support](mailto:support@dare.tech). |
+| Creating scheduled email reports in the Zappl portal fails with `The email address is not associated with an existing Zappl user. Please create a new user and try again`. | For extra security, only existing users in the Zappl portal can receive scheduled email reports. If you try to schedule an email report for an email address that is not linked to a user in the Zappl portal, this error will be seen. | [Create a new user](/portal/accounts#creating-user-accounts) in the Zappl portal using the desired email address for the scheduled report, then try again. |
+
+
