@@ -8,13 +8,136 @@ description: 'If you are looking to customise the JSON Schema in Jamf Pro or PLI
     <Tab title="Jamf Pro">
         #### Preference Structure
         The JSON schema profile is comprised of three main preference dictionaries; the **General Options**, the **Scheduled Update Options** and the **Forced Update Options**.
-        ![App Install](/images/json-structure.webp)
+        <img width="300" noZoom src="/images/json-structure.webp"/>
         
         The scheduled and forced update options have identical preference keys that serve the same purpose for the scheduled and forced update mechanisms respectively, although the forced update options require fewer preferences.
         
         This is partly because deferrals and grace periods for forced updates are configured on a per-app basis when you mark apps for forced updates, and partly because there is slightly less functionality required in the forced update feature.
         
-        ## JSON Preference Key Guide
+        ## Schema Preference Key Guide
+        
+        #### General Options
+        
+        <AccordionGroup>
+        
+            <Accordion title="Activation Token" icon="asterisk">
+                <Info>**This key is required to activate and use Zappl.**</Info>
+                Enter your unique customer activation token. If you do not know this, please [contact our Support team](mailto:helpdesk@dare.tech).
+            </Accordion>
+            
+            <Accordion title="Public Key" icon="asterisk">
+                <Info>**This key is required to activate and use Zappl.**</Info>
+                Enter your unique customer public key. If you do not know this, please [contact our Support team](mailto:helpdesk@dare.tech).
+            </Accordion>
+            
+            <Accordion title="Allow Hourly Attempt Updates" icon="square-check">
+                <Info>**This key is set to `true` by default.**</Info>
+                By default, Zappl attempts to install updates silently for Apps that are not in use once every hour. To disable these background update attempts, uncheck this option (**not recommended**).
+                
+                If you wish to disable all updates, this is the first of two settings that need to be unchecked, the second being the [Allow Recurring Update Prompts](/customise/preferences#allow-recurring-update-prompts) option.
+            </Accordion>
+            
+            <Accordion title="Allow Recurring Update Prompts" icon="square-check">
+                <Info>**This key is set to `true` by default.**</Info>
+                By default, Zappl prompts users to quit Apps that need to update on a regular recurring interval which can be configured in the Scheduled Update Options.
+                
+                If you wish to disable the _recurring scheduled update prompts_ and only attempt to install updates silently when Apps are not in use, uncheck this option and check the [Allow Hourly Attempt Updates](/customise/preferences#allow-hourly-attempt-updates) option only.
+                
+                If you wish to disable _all updates_, this is the second of two settings that need to be unchecked along with the [Allow Hourly Attempt Updates](/customise/preferences#allow-hourly-attempt-updates) option.
+            </Accordion>
+            
+            <Accordion title="Automatic Self Updates" icon="square-check">
+                <Info>**This key is set to `true` by default.**</Info>
+                By default, Zappl will update itself when new major and point releases are available.
+                
+                If you wish to disable this and either stay on a specific Zappl version, or push out updates for Zappl manually, **uncheck** this option.
+            </Accordion>
+            
+            <Accordion title="Allowed Installs" icon="list-ul">
+                By default, all Apps within the Zappl [App Catalog](https://zappl.co/app-catalog/) are available for installs. If you prefer to limit which Apps can be installed by Zappl, specify the Apps you wish to allow in this array.
+                
+                You can specify as many unique identifiers as you wish, using the [App Catalog](https://zappl.co/app-catalog/) unique identifiers for each App.
+                
+                <Note>If you wish to allow installs for all Apps within the catalog with the exception of a select few Apps, skip configuring this setting and use the [Excluded Installs](/customise/preferences#excluded-installs) setting. If you specify an App in this list which is also in the [Excluded Installs](/customise/preferences#excluded-installs) list, the exclusion will override this setting.</Note>
+                
+                <Frame caption="Example | Only Zoom, Google Chrome and Microsoft Excel are allowed installs and any other App installs will not be allowed via Zappl.">
+                    ![Allowed Updates](/images/prefs-allowed-installs.webp)
+                </Frame>
+            </Accordion>
+            
+            <Accordion title="Excluded Installs" icon="ban">
+                By default, all Apps within the Zappl [App Catalog](https://zappl.co/app-catalog/) are available for installs. If you wish to allow installs for all Apps in the catalog with the exception of only a few Apps, specify the Apps you wish to exclude in this array.
+                
+                You can specify as many unique App identifiers as you wish, using the [App Catalog](https://zappl.co/app-catalog/) unique identifiers for each App.
+                
+                <Note>If you wish to only allow installs for some specific Apps within our catalog, skip this setting and instead use the [Allowed Installs](/customise/preferences#allowed-installs) setting to create your allowed installations list. If you specify an App exclusion which is also in the [Allowed Installs](/customise/preferences#allowed-installs) list, only the exclusion will be respected.</Note>
+                
+                <Frame caption="Example | All Apps in the catalog can be installed by Zappl with the exception of WhatsApp and Facebook Messenger.">
+                    ![Allowed Updates](/images/prefs-exclude-installs.webp)
+                </Frame>
+            </Accordion>
+            
+            <Accordion title="Allowed Updates" icon="list-ul">
+                By default, all Apps within the Zappl [App Catalog](https://zappl.co/app-catalog/) will be updated if installed. If you prefer to limit which Apps can be updated by Zappl, specify the Apps you wish to allow in this array.
+                
+                You can specify as many unique identifiers as you wish, using the [App Catalog](https://zappl.co/app-catalog/) unique identifiers for each App.
+                
+                <Note>If you wish to allow updates for all Apps within the catalog with the exception of a select few Apps, skip configuring this setting and use the [Excluded Updates](/customise/preferences#excluded-updates] setting. If you specify an App in this list which is also in the [Excluded Updates](/customise/preferences#excluded-updates] list, the exclusion will override this setting.</Note>
+                
+                <Frame caption="Example | Zappl will only update Zoom, Google Chrome and Microsoft Excel and all other Apps will be ignored.">
+                    ![Allowed Updates](/images/prefs-allowed-updates.webp)
+                </Frame>
+            </Accordion>
+            
+            <Accordion title="Excluded Updates" icon="ban">
+                By default, all Apps within the Zappl [App Catalog](https://zappl.co/app-catalog/) will be updated if installed. If you wish to allow updates for all Apps in the catalog with the exception of only a few Apps, specify the Apps you wish to allow in this array.
+                
+                You can specify as many unique App identifiers as you wish, using the [App Catalog](https://zappl.co/app-catalog/) unique identifiers for each App.
+                
+                <Note>If you wish to only allow updates for some specific Apps within our catalog, skip this setting and instead use the [Allowed Updates](/customise/preferences#allowed-updates) setting to create your allowed update list. If you specify an exclusion App which is also in the [Allowed Updates](/customise/preferences#allowed-updates) list, only the exclusion will be respected.</Note>
+                
+                <Frame caption="Example | All Apps within the App Catalog will be updated by Zappl if installed, with the exception of Jamf Connect and Cato Client.">
+                    ![Allowed Updates](/images/prefs-exclude-updates.webp)
+                </Frame>
+            </Accordion>
+        </AccordionGroup>
+        
+        <br />
+        
+        #### Scheduled Options
+        
+        <AccordionGroup>
+        
+            <Accordion title="Run Frequency Options" icon="filter-list">
+                Although the scheduled cached update check is run on a frequent basis every day, the preferences in the Run Frequency Options dictionary ensure that users are only prompted to install updates on a specified frequency, e.g. once every week.
+                
+                First, use the **Run Frequency Option** dropdown to define a method of frequently prompting users to update.
+                ![Run Frequency Option](/images/prefs-run-frequency.webp)
+                
+                [`Specify Patch Frequency`](/customise/preferences#specify-patch-frequency-preferences)
+                Select this option if you prefer not to tie the updates to a specified weekday and instead run updates on a recurring frequency, _e.g. once every day, once every week etc_.
+                <br />[`Specify Recurring Patch Day`](/customise/preferences#specific-patch-day-preferences)
+                Select this option if you want to specify a day of each week to prompt users if they have pending updates, _e.g. every Tuesday_.
+                
+                When you select one of these two options, preferences that relate to each option automatically populate.
+                ![Run Frequency Options](/images/prefs-run-frequency-gif.gif)
+            </Accordion>
+            
+            <Accordion title="Specific Patch Frequency Preferences" icon="timer">
+                `Frequency to Prompt Users`
+                <br />Use this dropdown to select how often you want to prompt users to update.
+                ![Frequency to Prompt Users](/images/prefs-prompt-user-freq.webp)
+                
+                `Frequency Elapsed Behaviour`
+                <br />This dropdown determines how Zappl should behave if the user defers the update. Selecting the `Single Prompt Mode` option will ensure that if the user defers the update, they will not get prompted to update again until the configured frequency has elapsed again, e.g. one week later.
+                Alternatively, select `Recurring Prompt Mode` if you prefer to prompt the user on a recurring basis after deferring until the update is installed.
+                ![Frequency Elapsed Behaviour](/images/prefs-freq-elapsed.webp)
+                
+                <Note>When selecting `Recurring Prompt Mode`, the **Recurring Prompt Mode Deferral Window (Patch Frequency)** field appears and allows you to define a minimum deferral period in minutes.</Note>
+                ![Recurring Prompt Mode Deferral Window (Patch Frequency)](/images/prefs-recur-prompt-deferral.webp)
+            </Accordion>
+            
+        </AccordionGroup>
         
     </Tab>
     <Tab title="Other MDMs">
