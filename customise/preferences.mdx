@@ -104,7 +104,7 @@ description: 'If you are looking to customise the JSON Schema in Jamf Pro or PLI
         
         <br />
         
-        #### Scheduled Options
+        #### **ONLY** Scheduled Options
         
         <AccordionGroup>
         
@@ -124,21 +124,283 @@ description: 'If you are looking to customise the JSON Schema in Jamf Pro or PLI
             </Accordion>
             
             <Accordion title="Specific Patch Frequency Preferences" icon="timer">
-                `Frequency to Prompt Users`
-                <br />Use this dropdown to select how often you want to prompt users to update.
+                #### `Frequency to Prompt Users`
+                Use this dropdown to select how often you want to prompt users to update.
                 ![Frequency to Prompt Users](/images/prefs-prompt-user-freq.webp)
                 
-                `Frequency Elapsed Behaviour`
-                <br />This dropdown determines how Zappl should behave if the user defers the update. Selecting the `Single Prompt Mode` option will ensure that if the user defers the update, they will not get prompted to update again until the configured frequency has elapsed again, e.g. one week later.
+                #### `Frequency Elapsed Behaviour`
+                This dropdown determines how Zappl should behave if the user defers the update. Selecting the `Single Prompt Mode` option will ensure that if the user defers the update, they will not get prompted to update again until the configured frequency has elapsed again, e.g. one week later.
                 Alternatively, select `Recurring Prompt Mode` if you prefer to prompt the user on a recurring basis after deferring until the update is installed.
                 ![Frequency Elapsed Behaviour](/images/prefs-freq-elapsed.webp)
                 
-                <Note>When selecting `Recurring Prompt Mode`, the **Recurring Prompt Mode Deferral Window (Patch Frequency)** field appears and allows you to define a minimum deferral period in minutes.</Note>
-                ![Recurring Prompt Mode Deferral Window (Patch Frequency)](/images/prefs-recur-prompt-deferral.webp)
+                <Note>When selecting `Recurring Prompt Mode`, the **Recurring Prompt Mode Deferral Window (Patch Frequency)** field appears and allows you to define a minimum deferral period in minutes.
+                ![Recurring Prompt Mode Deferral Window (Patch Frequency)](/images/prefs-recur-prompt-deferral.webp)</Note>
+                
             </Accordion>
             
+            <Accordion title="Specific Patch Day Preferences" icon="calendar-day">
+                #### `Patch Day`
+                Use this dropdown to select a day of the week to prompt users to update when updates are pending.
+                ![Patch Day](/images/prefs-patch-day.webp)
+                
+                #### `Missed Update Prompts`
+                Selecting this option ensures that if a computer is offline on the defined weekly patch day, the user can be prompted to update at the next available opportunity as opposed to waiting until the next patch day. Leave this **unchecked** if you prefer to ensure that prompts are only ever displayed on the configured patch day.
+                ![Missed Update Prompts](/images/prefs-missed-update-prompts.webp)
+                
+                #### `Patch Day Prompt Frequency`
+                This dropdown helps you determine how frequently users are prompted to update on the configured patch day when they defer an update.<br />Selecting the `Single Prompt Mode` option ensures that when a user defers the update, they won't get prompted to update until the following week on the configured patch day.<br />If you prefer to prompt the user to update on a recurring basis on the configured patch day, select the `Recurring Prompt Mode` option.
+                ![Patch Day Prompt Frequency](/images/prefs-patch-day-prompt-freq.webp)
+                
+                <Note>When selecting `Recurring Prompt Mode`, the `Recurring Prompt Mode Deferral Window (Patch Day)` field appears and allows you to define a minimum deferral period in minutes.
+                ![Patch Day Prompt Frequency (Recurring Prompt)](/images/prefs-patch-day-prompt-recurring.webp)</Note>
+                
+                
+                <Warning>If Zappl finds no preferences configuration profile, the default behaviour is to prompt users to update **once every week** with **single prompt mode** enabled.</Warning>
+            </Accordion>
+            
+            <Accordion title="Deferral Options" icon="hourglass-clock">
+            
+                > Use this preference dictionary to configure your desired deferral behaviour.
+                
+                <Info>This preference is unique to the **Scheduled Update Options** dictionary. Deferral options for Forced Updates are configured when marking Apps for [Forced Updates](/apps/updates#forced-updates).</Info>
+                
+                #### `Specify Deferral Limit`
+                Configuring a deferral limit for updates ensures that users cannot defer the update indefinitely. The deferral limit you configure here is how many times the user will be allowed to defer the update before being forced to install the update. Use the **Deferral Limit** field to specify your desired deferral limit.
+                ![Specify Deferral Limit](/images/prefs-specify-deferral-limit.webp)
+                
+                #### `Disable Deferral Limit`
+                Selecting this option will allow users to defer the update indefinitely. We recommend only using this option if you plan to create a workflow which utilises forcing the update on demand.
+                ![Disable Deferral Limit](/images/prefs-disable-deferral-limit.webp)
+                
+                #### `Disable Deferrals`
+                Selecting this option will mean that users will not be given any opportunity to defer and will instead be given a [Grace Period](/customise/preferences#grace-period) to save any work before the updates are automatically installed.
+                ![Disable Deferrals](/images/prefs-disable-deferrals.webp)
+            </Accordion>
+            
+            <Accordion title="Grace Period" icon="hourglass-half">
+                <Info>This preference is unique to the **Scheduled Update Options** dictionary. Deferral options for Forced Updates are configured when marking Apps for [Forced Updates](/apps/updates#forced-updates).</Info>
+            
+                This is the amount of time in **minutes** a user is given to save work before updates install automatically when deferrals are either not available or not configured.<br />By default this value is `15` minutes, therefore you only need to configure this preference if you wish to decrease or increase the default grace period.
+                ![Grace Period (Minutes)](/images/prefs-grace-period.webp)
+            </Accordion>
+            
+            <Accordion title="Custom Multiple Apps Title" icon="text">
+                <Info>This preference is only present in the **Scheduled Update Options** dictionary. This is because Forced Updates are always performed on a per-App basis, therefore all forced update prompts relate to a single App.</Info>
+                
+                Use this preference to customise the default title shown on any update prompt when more than one App updates are pending.                ![Custom Multiple Apps Title](/images/prefs-custom-multi-app-title.webp)
+            </Accordion>
+            
+            <Accordion title="Custom Self Service Skip Button" icon="arrow-pointer">
+                <Info>This preference is only present in the **Scheduled Update Options** dictionary. This is because the key is referring specifically to a self-initiated update check via Self Service.</Info>
+            
+                Use this preference to change the label on the button used to skip updates if a user decides to back out of the update after initiating the [Self Service Updates](/deploy/jamf-pro#self-service-updates) policy.
+                ![Custom Self Service Skip Button](/images/prefs-custom-ss-skip-button.webp)
+            </Accordion>
+            
+            <Accordion title="App List Type" icon="bars">
+                <Info>This preference is only present in the **Scheduled Update Options** dictionary. This is because Forced Updates are performed on a per-App basis and therefore do not contain App lists.</Info>
+                
+                This preference determines how to list Apps that have pending updates on the update prompts displayed to the user.
+                ![App List Type](/images/prefs-app-list-type.webp)
+                
+                #### `Vertical List`
+                <Note>This is the default setting.</Note>
+                When configured, Apps will be displayed at the bottom of the prompt in a vertical scrollable list along with their icon and the pending version that will be installed by the update.
+                ![Vertical List UX](/images/prefs-app-list-vertical-gif.gif)
+                
+                #### Horizontal List
+                Select this option if you prefer to display Apps in a basic comma separated list.
+                ![Horizontal List UX](/images/prefs-app-list-horizontal.webp)
+            </Accordion>
         </AccordionGroup>
         
+        <br />
+        
+        #### Scheduled **AND** Forced Options
+        
+        <AccordionGroup>
+            <Accordion title="Run Limitation Options" icon="gear">
+                You can use the Run Limitation Options dictionary to apply exclusions to the frequency options you previously configured for **Scheduled Updates**. The same options are also available in the **Forced Updates** dictionary to allow you to limit when Zappl is permitted to prompt users to update any Apps that have been marked for forced updates.<br />A checkbox is available and by default ticked for each day of the week. If there is a particular day of the week you want to ensure update prompts are never displayed to the user, simply **uncheck** the box next to the day. This is useful when using the [Specify Patch Frequency](/customise/preferences#specific-patch-frequency-preferences) option, or when specifying a patch day with the [Missed Update Prompts](/customise/preferences#specific-patch-day-preferences) option checked.
+                ![Run Limitation Options](/images/prefs-run-limits-checkbox.webp)
+                
+                <Note>If you have specified a weekly patch day, and that patch day is then _unchecked_ in the run limitation options, the run limitation for that day will be ignored and the user will still be prompted to update on the configured patch day.</Note>
+                
+                Each day also offers the option to define an allowed update time window. Selecting an allowed time window means that whenever Zappl runs outside of that window, update prompts will be skipped and Zappl will exit with no further action.<br />By default, the start time is `12.00am` and the end time is `11.59pm`, but you can easily change this on a per-day basis by modifying the values in the fields.
+                ![Run Limitation - Allowed Update Times](/images/prefs-run-limits-allowed-time.webp)
+                
+                If you want to define an exclusion time window, e.g. do not prompt between `2pm` and `4pm` but allow prompts for the rest of the day, simply reverse the timestamps as shown below.
+                ![Run Limitation - Excluded Update Times](/images/prefs-run-limits-excluded-time.webp)
+            </Accordion>
+            
+            <Accordion title="Custom Icon" icon="wand-magic-sparkles">
+                By default, the icon displayed on the left hand side of the update prompts is your **Jamf Self Service icon** for _scheduled updates_, and the **App icon** for _forced updates_.
+                ![Custom Icon](/images/prefs-custom-icon.webp)
+                
+                If you wish to change this to a different image, specify the path of an image to use in this field.
+                ![Custom Icon Path](/images/prefs-custom-icon-path.webp)
+            </Accordion>
+            
+            <Accordion title="Initial Prompt Icon Overlay" icon="wand-magic-sparkles">
+                Configuring this option allows you to overlay a second icon on the bottom right corner of the main icon.
+                
+                By default, no icon overlay is configured, but you can specify a valid `.png`, .`jpg` or `.icns` file here to add one. To use the Jamf Self Service icon as the overlayed icon, type in `selfService`.
+                <Frame caption="Here we're using this feature with a custom App Store icon.">
+                ![Initial Prompt Icon Overlay Path](/images/prefs-initial-prompt-icon-path.webp)
+                ![Initial Prompt Icon Overlay UX](/images/prefs-initial-prompt-icon-overlay.webp)
+                </Frame>
+            </Accordion>
+            
+            <Accordion title="Custom Prompt Sizes" icon="wand-magic-sparkles">
+                The following prompt sizes can be customised via unique preference keys.
+                
+                #### `Custom Initial Prompt Size`
+                The prompt shown when deferrals are available (Available in the **Scheduled** and **Forced Updates** dictionaries).
+                
+                #### `Custom Grace Period Prompt Size`
+                The prompt shown when deferrals are not available or not configured (Available in the **Scheduled** and **Forced Updates** dictionaries).
+                
+                #### `Custom Self Service Prompt Size`
+                The prompt shown when a user initiated the [Self Service Updates](/deploy/jamf-pro#self-service-updates) policy (Available in the **Scheduled Update** options dictionary).
+                
+                The default size of the update prompts is set to provide enough space for the default text. If you change the text, the prompt size might become too small or too large. If it's too large, you'll see a lot of white space. If it's too small, you'll need to scroll to read all the text.<br />To remediate this, use the custom prompt size preferences listed above to adjust the size of various prompts displayed to users.
+                
+                <Note>When using `Vertical List` as the app list option, Zappl automatically adds on the required prompt height to your custom prompt height to allow enough space for the App list to be shown beneath the prompt message. When configuring your custom prompt size, first switch the [App List Type](/customise/preferences#app-list-type) to the `Horizontal List` option, and ensure your prompt message fits perfectly into the custom prompt size. Once you are happy with the size, change the App list type back to `Vertical List` mode.</Note>
+                
+                ![Custom Prompt Size](/images/prefs-custom-prompt-size.webp)
+            </Accordion>
+            
+            <Accordion title="Custom Single App Title" icon="wand-magic-sparkles">
+                Use this preference to customise the default title shown on any update prompt when there is 1 pending App update. You can define the name of the App using the `appName` variable.
+                ![Custom Single App Title](/images/prefs-custom-single-app-title.webp)
+                
+                <Note>In the **Forced Update** options dictionary, this preference is labelled `Custom Title`. This is because forced updates are always performed on a per-App basis, so all forced update prompts relate to a single App.</Note>
+            </Accordion>
+            
+            <Accordion title="Custom Prompt Messages" icon="wand-magic-sparkles">
+                If you choose to customise the default text displayed on the update prompts, there are a number of different prompts which relate to different scenarios that can be modified.<br />When customising prompt text, ensure that you customise the text on the keys outlined below.
+                
+                #### `Single App Initial Quit Prompt Message`
+                This message will be displayed on the prompt shown when there is 1 pending App update and deferrals are available.
+                
+                #### `Multiple Apps Initial Quit Prompt Message`
+                This message will be displayed on the prompt shown when there are multiple App updates pending and deferrals are available.
+                
+                #### `Single App Self Service Quit Prompt Message`
+                This message will be displayed on the prompt shown when a user initiates the Self Service Application Updates policy and there is 1 pending App update which requires a quit.
+                
+                #### `Multiple App Self Service Quit Prompt Message`
+                This message will be displayed on the prompt shown when a user initiates the Self Service Application Updates policy and there are multiple pending App updates which require a quit.
+                
+                #### `Single App Grace Period Quit Prompt Message`
+                This message will be displayed on the prompt shown when there is 1 pending App update and deferrals are either not available or not configured.
+                
+                #### `Multiple Apps Grace Period Quit Prompt Message`
+                This message will be displayed on the prompt shown when there are multiple App updates pending and deferrals are either not available or not configured.
+                
+                ![Custom Prompt Messages](/images/prefs-custom-prompt-messages.webp)
+                
+                When customising the text for update prompts, variables can be utilised to include information such as deferral information, App names, button labels etc. For all variables available, see [Custom Message Variables](/customise/message-variables).
+                
+                <Note>When configuring custom **Forced Update** messages, the single and multiple App options are not present. This is because forced updates are run on an individual App basis, so the prompts are always single App prompts.</Note>
+            </Accordion>
+            
+            <Accordion title="Custom Defer Button" icon="arrow-pointer">
+                Use this preference to change the label on the button used to defer updates.
+                ![Custom Defer Button](/images/prefs-custom-defer-button.webp)
+            </Accordion>
+            
+            <Accordion title="Custom Update Button" icon="arrow-pointer">
+                Use this preference to change the label on the button used to run updates.
+                ![Custom Defer Button](/images/prefs-custom-update-button.webp)
+            </Accordion>
+            
+            <Accordion title="Prompt Refresh Interval" icon="rotate">
+                This is the length of time in seconds that the update prompts pull focus. Without the prompts regularly pulling focus, it is easy for the user to swipe away and ignore the update prompt without choosing to either defer or update.
+                
+                The default value is `20` seconds. If you find this too aggressive, you can change the value to suit your needs. The minimum allowed value is `10` seconds.
+                ![Prompt Refresh Interval](/images/prefs-prompt-refresh-interval.webp)
+            </Accordion>
+            
+            <Accordion title="Do Not Disturb Applications" icon="snooze">
+                Use this preference to define any Apps which if detected as being in the foreground will cause the update prompt to skip.<br />It is recommended that you configure this preference and add any video conferencing or presentation software used across your estate. This will ensure that users don't get prompted to update whilst on a conference call or when presenting.<br />To define an App, you must first get the bundle identifier of the App. To do so, paste the below command into Terminal on a macOS computer that has the App installed (replacing `zoom.us.app` with the name of the App you want to define). Alternatively, if it's an app supported in our [App Catalog](zappl.co/app-catalog) you can find the Bundle Identifier there.
+                ```bash
+                defaults read /Applications/zoom.us.app/Contents/Info.plist CFBundleIdentifier
+                ```
+                Copy the resulting bundle identifier to your clipboard and paste it into the `Do Not Disturb Application Bundle ID` preference. You can add as many App bundle identifiers as you require by clicking the **Add Do Not Disturb Application Bundle ID** button.
+                ![DND Applications](/images/prefs-dnd-apps.webp)
+            </Accordion>
+            
+            <Accordion title="Do Not Disturb Application Assertions" icon="snooze">
+            <Tip>An **application assertion** is when an app actively declares that it needs to use a specific system resource, like the microphone, camera, or location services.</Tip>
+                
+                Use this preference to ensure that updates are skipped if an application is using assertions. If an application is using the system microphone or playing audio, it should be marked as using assertions.<br />This is useful in scenarios where a user may be in a meeting using a web-based client like Google Meets without a camera on, as the assertion used by the web browser would prevent the update from interrupting the meeting.<br />You can add as many assertion apps as you wish, ensuring to use the correct assertion name format. To get the required assertion name format, run `/usr/bin/pmset -g assertions` in Terminal while the application is running and using assertions.
+                
+                ![DND Application Assertions](/images/prefs-dnd-app-assertions.webp)
+            </Accordion>
+            
+            <Accordion title="Respect Do Not Disturb Mode" icon="snooze">
+                Use this preference to ensure that if macOS Do Not Disturb mode is enabled, update prompts are skipped.<br />Setting this as `true` will skip the update prompts, setting as `false` will prompt users while Do Not Disturb mode is detected.
+                
+                ![Respect DND Mode](/images/prefs-respect-dnd.webp)
+            </Accordion>
+            
+            <Accordion title="Do Not Disturb Camera Usage" icon="snooze">
+                Use this preference to ensure that if the camera is detected as being actively in use, the update will be skipped.<br />We recommend setting this as `true` to ensure that users are not interrupted whilst on conference calls.
+                
+                ![DND Camera Usage](/images/prefs-dnd-camera.webp)
+            </Accordion>
+            
+            <Accordion title="Do Not Disturb Screen Sharing" icon="snooze">
+                Use this preference to ensure that if screen sharing is detected as being actively in use, the update will be skipped.<br />We recommend setting this as true to ensure that users are not interrupted whilst sharing their screen on conference calls or whilst recording their screen.
+                
+                ![DND Screen Sharing](/images/prefs-dnd-screen-sharing.webp)
+            </Accordion>
+            
+            <Accordion title="Update Progress Prompt Position" icon="wand-magic-sparkles">
+                The update progress prompt is the small prompt that contains an update progress bar and information around the update whilst the update is running.
+                ![Update Progress Prompt UX](/images/prefs-update-progress-prompt-ux.webp)
+                
+                The default position of this prompt is the `top right` corner of the screen. This position can be modified using the dropdown within this preference.
+                ![Update Progress Prompt Options](/images/prefs-update-progress-prompt.webp)
+            </Accordion>
+            
+            <Accordion title="Update Progress Prompt Behaviour" icon="wand-magic-sparkles">
+                This dropdown determines whether to display an update progress prompt during updates, and if so, determines whether the update progress prompt takes focus over other Apps whilst updates are running.
+                
+                #### `Prompt without focus`
+                <Info>This is the default value.</Info>
+                This option shows an update progress prompt during updates, but ensures that other Apps can pull focus over the prompt.
+                #### `Prompt with focus`
+                This option ensures that the update progress prompt always stays visible on top of any apps the user is using during updates.
+                #### `Don't show a prompt`
+                This option ensures no update progress prompt is displayed. With this configured, a reminder prompt will be displayed to the user if they attempt to open an app which is being updated.
+                
+                ![Update Progress Prompt Behaviour](/images/prefs-update-progress-behaviour.webp)
+            </Accordion>
+            
+            <Accordion title="Update Progress Prompt Overlay Icon" icon="wand-magic-sparkles">
+                Use this preference to add an overlay icon to the update progress prompts. When updates are running, the main icon displayed is the icon for the App currently being updated. The overlay icon will be displayed on the bottom right corner of the App icon.<br />You can specify either a path to a valid `.png`, `.jpg` or `.icns` file, or use the `selfService` variable for the Jamf Self Service icon.
+                
+                ![Update Progress Prompt Overlay Icon](/images/prefs-update-progress-overlay-icon.webp)
+                ![Update Progress Prompt Overlay Icon UX](/images/prefs-update-progress-overlay-icon-ux.webp)
+            </Accordion>
+            
+            <Accordion title="Automatically Relaunch Apps" icon="browser">
+                With this set as `true`, Zappl silently relaunches the app as soon as the update completes providing that the app was in use prior to the update.<br />Set this as `false` to skip relaunching apps.
+                
+                ![Auto Relaunch Apps](/images/prefs-auto-relaunch-apps.webp)
+            </Accordion>
+            
+            <Accordion title="Display Complete Message" icon="check">
+                Use this preference to determine whether a prompt should be displayed to the user to inform them that all updates have finished being installed.<br />The complete message prompt is the same size as the update progress prompt and inherits the same screen position.
+                
+                ![Display Complete Message](/images/prefs-complete-message-ux.webp)
+                
+                To ensure this prompt is displayed to the user when updates are complete, set this as `true`, or alternatively to disable the prompt set this as `false`.
+                
+                ![Display Complete Message](/images/prefs-complete-message.webp)
+            </Accordion>
+        </AccordionGroup>
     </Tab>
     <Tab title="Other MDMs">
     </Tab>
