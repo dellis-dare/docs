@@ -116,12 +116,17 @@
     "global": {
       "anchors": [
         {
-          "anchor": "zappl.co",
+          "anchor": "Zappl | Homepage",
           "href": "https://zappl.co",
           "icon": "globe-pointer"
         },
         {
-          "anchor": "dare.tech",
+          "anchor": "Zappl | Portal",
+          "href": "https://portal.zappl.co",
+          "icon": "globe-pointer"
+        },
+        {
+          "anchor": "Developed by DARE",
           "href": "https://dare.tech",
           "icon": "globe-pointer"
 

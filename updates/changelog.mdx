@@ -3,11 +3,25 @@ title: 'Zappl Updates'
 icon: 'sparkles'
 ---
 
-<Update label="2024-10-12" description="v0.1.1">
-	This is how you use a changelog with a label 
-	and a description.
+{/* Working on potentially automating this using a GitHub action Script, which automatically takes the latest commit in the Zappl repo and formats it as an update here. */}
+
+
+<Update label="v1.2.1" description="2025-03-27">
+	Added option to skip automatic permissions setting to allow it to be done with a delay through the post-install script. This is for apps where gatekeeper takes a while to finish verification. Also added logic to allow app installs to make up to 10 API calls daily if the specified app was not found in the offline app catalog.
 </Update>
-<Update label="2024-10-11" description="v0.1.0">
-	This is how you use a changelog with a label 
-	and a description.
+
+<Update label="v1.2.0" description="2025-03-13">
+	Improved internal backend logic, and fixed some user `full name` output bugs.
+</Update>
+
+<Update label="v1.1.2" description="2025-03-11">
+	Bug fixes, including a loop bug where `'components could not be verified'`.
+</Update>
+
+<Update label="v1.1.1" description="2025-02-19">
+	Zappl will now conduct 2 App Catalog API calls per day, reducing the network activity from Zappl without affecting the end user experience of effectiveness of Zappl.
+</Update>
+
+<Update label="v1.1.0" description="2025-01-17">
+	Moved some API infrastructure in our backend system.
 </Update>

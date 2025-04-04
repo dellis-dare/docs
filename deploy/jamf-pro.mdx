@@ -11,13 +11,11 @@ description: 'This guide provides step-by-step instructions on how to use Jamf P
 
 We’d recommend two Categories for Zappl deployment;
 
-<ParamField path="Zappl">
-  For housing the necessary Configuration Profiles, Policies, Scripts etc.
-</ParamField>
+`Zappl`
+> For housing the necessary Configuration Profiles, Policies, Scripts etc.
 
-<ParamField path="Application Updates">
-  A useful Category to be used with the Self Service updates.
-</ParamField>
+`Application Updates`
+> A useful Category to be used with the Self Service updates.
 
 #### Adding Categories
 <Steps>
@@ -108,7 +106,7 @@ We’d recommend two Categories for Zappl deployment;
 
 <Steps>
   <Step>
-    Download [our .mobileconfig file](https://github.com/dare-tech/zappl/blob/main/Config%20Profiles/Zappl%20-%20PPPC.mobileconfig).
+    Download our [.mobileconfig file](https://github.com/dare-tech/zappl/blob/main/Config%20Profiles/Zappl%20-%20PPPC.mobileconfig).
   </Step>
   <Step>
     In Jamf Pro, navigate to _Computers > Configuration Profiles_ and click **Upload**.
@@ -131,7 +129,7 @@ We’d recommend two Categories for Zappl deployment;
 
 <Steps>
   <Step>
-    Download [our Zappl installer script](https://github.com/dare-tech/zappl/blob/main/Scripts/Install%20Zappl.zsh).
+    Download our [Zappl installer script](https://github.com/dare-tech/zappl/blob/main/Scripts/Install%20Zappl.zsh).
   </Step>
   <Step>
     In Jamf Pro, navigate to _Settings > Computer Management > Scripts_ and click **New**.
@@ -179,9 +177,9 @@ We’d recommend two Categories for Zappl deployment;
 <Info>**The following scripts are optional for deploying Zappl but provide extra functionality.** It's recommended to add these scripts to your Jamf Pro environment while setting up the Zappl deployment, ensuring they're readily available when needed.</Info>
 
 #### Deploy Software Script
-<Info>**This script enables the installation of any app from our [app catalog](zappl.co/app-catalog).** It eliminates the need for Jamf Pro admins to manually package and deploy software. For instructions on using this script, refer to Adding Scripts to Jamf Pro below.</Info>
+<Info>**This script enables the installation of any app from our [app catalog](https://zappl.co/app-catalog).** It eliminates the need for Jamf Pro admins to manually package and deploy software. For instructions on using this script, refer to Adding Scripts to Jamf Pro below.</Info>
 
-Download [our Deploy Software script](https://github.com/dare-tech/zappl/blob/main/Scripts/Zappl%20-%20Deploy%20Software.zsh), and utilise the Parameter Labels below.
+Download our [Deploy Software script](https://github.com/dare-tech/zappl/blob/main/Scripts/Zappl%20-%20Deploy%20Software.zsh), and utilise the Parameter Labels below.
 
 <AccordionGroup>
   <Accordion title="Parameter 4" icon="square-4">
@@ -204,7 +202,7 @@ Download [our Deploy Software script](https://github.com/dare-tech/zappl/blob/ma
 #### Collect Logs Script
 <Info>This script provides an easy method for collecting Zappl log files when troubleshooting. For instructions on using this script, refer to Adding Scripts to Jamf Pro below.</Info>
 
-Download [our Log Collection script](https://github.com/dare-tech/zappl/blob/main/Scripts/Zappl%20-%20Collect%20Logs.zsh), and utilise the Parameter Labels below.
+Download our [Log Collection script](https://github.com/dare-tech/zappl/blob/main/Scripts/Zappl%20-%20Collect%20Logs.zsh), and utilise the Parameter Labels below.
 
 <AccordionGroup>
   <Accordion title="Parameter 4" icon="square-4">
