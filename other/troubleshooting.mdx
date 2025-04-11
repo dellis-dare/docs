@@ -81,13 +81,55 @@ description: 'If things _do_ go wrong, Zappl provides error codes which can be l
 
 ## Frequently Encountered Issues
 
-| Symptom | Explanation | Remediation |
-| :------ | :---------- | :---------- |
-| The Install Zappl.zsh script fails with `Error: The Zappl deployment failed because the installer script is inaccessible. Please check the Zappl network requirements and try again`. | The script was blocked when attempting to download the Zappl installer components from `zappl.co`. | Verify that the network connection is stable and that the Zappl [Network Requirements](/about/requirements) have been met. Specifically, this requires outbound network access using port `443` (HTTPS) to `zappl.co`.<br />If the issue persists, the service could be experiencing a temporary outage. |
-| App installation fails with `Error: Not enough disk space available to download and install the $appName update`. | The app installer size is greater than the available disk space on the computer, preventing it from being downloaded. | Free up disk space on the computer. The Zappl log displays how much space is required for the particular update/install, however it is advisable to free up as much space as possible to prevent further installs/updates from failing. |
-| App installation fails with `Error: $appName is not compatible with this macOS version`. | The installed version of macOS does not meet the macOS requirements for the app. | Review the Zappl log to see the macOS requirement for the app.<br />If the installed macOS version is too far behind, upgrade the computer to the supported macOS version.<br />If the app can only be installed on older versions of macOS, limit installs of the app to computers which meet the required macOS criteria. |
-| App installation fails with `Error: The $appName installer could not be downloaded`. | Zappl could not download the installer for the app in question. | Verify that full network access is permitted to the software vendor’s public download URLs and try again.<br />If the issue persists, the vendor may be experiencing a temporary outage. |
-| App installation fails with `Error: Could not mount disk image for $appName`. | The disk image containing the software was successfully downloaded, but couldn’t be mounted. | Remove any disk image restrictions. Disk images can be blocked using MDM configuration profiles and other third party security tools. Blocking disk images will cause any apps with .dmg installers to fail, therefore lifting these restrictions will resolve this issue.<br />If no restrictions are in place, the downloaded disk image may be damaged. In this case, retry the install/update and if the issue persists please [contact support](mailto:support@dare.tech). |
-| Creating scheduled email reports in the Zappl portal fails with `The email address is not associated with an existing Zappl user. Please create a new user and try again`. | For extra security, only existing users in the Zappl portal can receive scheduled email reports. If you try to schedule an email report for an email address that is not linked to a user in the Zappl portal, this error will be seen. | [Create a new user](/portal/accounts#creating-user-accounts) in the Zappl portal using the desired email address for the scheduled report, then try again. |
+<AccordionGroup>
+    <Accordion title="The install Zappl script fails to install Zappl">
+        #### Symptom
+        `Error: The Zappl deployment failed because the installer script is inaccessible. Please check the Zappl network requirements and try again.`
+        #### Explanation
+        The script was blocked when attempting to download the Zappl installer components from `zappl.co`.
+        #### Remediation
+        Verify that the network connection is stable and that the Zappl [Network Requirements](/about/requirements) have been met. Specifically, this requires outbound network access using port `443` (HTTPS) to `zappl.co`.<br />If the issue persists, the service could be experiencing a temporary outage.
+    </Accordion>
+    <Accordion title="App installation failure | Not enough disk space">
+        #### Symptom
+        `Error: Not enough disk space available to download and install the $appName update.`
+        #### Explanation
+        The app installer size is greater than the available disk space on the computer, preventing it from being downloaded.
+        #### Remediation
+        Free up disk space on the computer. The Zappl log displays how much space is required for the particular update/install, however it is advisable to free up as much space as possible to prevent further installs/updates from failing.
+    </Accordion>
+    <Accordion title="App installation failure | Incompatible OS">
+        #### Symptom
+        `Error: $appName is not compatible with this macOS version.`
+        #### Explanation
+        The installed version of macOS does not meet the macOS requirements for the app.
+        #### Remediation
+        Review the Zappl log to see the macOS requirement for the app.<br />If the installed macOS version is too far behind, upgrade the computer to the supported macOS version.<br />If the app can only be installed on older versions of macOS, limit installs of the app to computers which meet the required macOS criteria.
+    </Accordion>
+    <Accordion title="App installation failure | Could not download app">
+        #### Symptom
+        `Error: The $appName installer could not be downloaded.`
+        #### Explanation
+        Zappl could not download the installer for the app in question.
+        #### Remediation
+        Verify that full network access is permitted to the software vendor’s public download URLs and try again.<br />If the issue persists, the vendor may be experiencing a temporary outage.
+    </Accordion>
+    <Accordion title="App installation failure | Could not mount disk image">
+        #### Symptom
+        `Error: Could not mount disk image for $appName.`
+        #### Explanation
+        The disk image containing the software was successfully downloaded, but couldn’t be mounted.
+        #### Remediation
+        Remove any disk image restrictions. Disk images can be blocked using MDM configuration profiles and other third party security tools. Blocking disk images will cause any apps with .dmg installers to fail, therefore lifting these restrictions will resolve this issue.<br />If no restrictions are in place, the downloaded disk image may be damaged. In this case, retry the install/update and if the issue persists please [contact support](mailto:support@dare.tech).
+    </Accordion>
+    <Accordion title="Portal | Unable to send reports to email addresses">
+        #### Symptom
+        `The email address is not associated with an existing Zappl user. Please create a new user and try again.`
+        #### Explanation
+        For extra security, only existing users in the Zappl portal can receive scheduled email reports. If you try to schedule an email report for an email address that is not linked to a user in the Zappl portal, this error will be seen.
+        #### Remediation
+        [Create a new user](/portal/accounts#creating-user-accounts) in the Zappl portal using the desired email address for the scheduled report, then try again.
+    </Accordion>
+</AccordionGroup>
 
 

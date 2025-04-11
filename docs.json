@@ -27,7 +27,6 @@
             "group": "Deploying Zappl",
             "pages": [
               "deploy/general",
-              "deploy/report-only",
               "deploy/jamf-pro",
               "deploy/jamf-school",
               "deploy/kandji",
@@ -116,20 +115,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Zappl | Homepage",
-          "href": "https://zappl.co",
-          "icon": "globe-pointer"
-        },
-        {
-          "anchor": "Zappl | Portal",
-          "href": "https://portal.zappl.co",
-          "icon": "globe-pointer"
-        },
-        {
           "anchor": "Developed by DARE",
           "href": "https://dare.tech",
           "icon": "globe-pointer"
-
+        },
+        {
+          "anchor": "Zappl | Website",
+          "href": "https://dare.tech/zappl",
+          "icon": "globe-pointer"
         }
       ]
     }
